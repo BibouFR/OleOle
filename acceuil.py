@@ -1,9 +1,10 @@
 import pygame
 from pygame.locals import *
 
+
 class Boutton(object):
     police = pygame.font
-    boutton = pygame.image.load("image/)
+    boutton = pygame.image.load("image/index.jpeg")
     rect = boutton.get_rect()
 
     def __init__(self, lettre, position):
@@ -18,7 +19,6 @@ class Boutton(object):
 
 
 pygame.init()
-
 
 #Ouverture de la fenêtre Pygame
 
