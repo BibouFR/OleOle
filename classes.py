@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+from random import *
 
 class Perso:
 
@@ -56,4 +57,35 @@ class Perso:
                     self.y = self.case_y * taille_sprite
             self.direction = self.bas
 
-
+class Crepes:
+    def __init__(self, difficulte, ingredients):        #Crée une crêpe en fonction de la difficulté renvoie une liste d'ingrédients
+        ingredientsDisponibles = ["oeuf","fromage","jambon","cornichon", "champignons", "salade", "tomate", "nutella", "sucre", "miel", "confiture", "citron", "chantilly"]
+        ingredientsSales = ingredientsDisponibles[:7]
+        ingredientsSucres = ingredientsDisponibles[6:]
+        self.ingredients = []
+        self.difficulte = difficulte
+        a = choice(ingredientsDisponibles)
+        if a in ingredientsSales:                           #RESPECTE LES CREPES SALES
+            ingredientsDisponibles=ingredientsSales         #ET LES CREPES SUCRES
+        else:                                               #PAS DE MELANGE ptdr
+            ingredientsDisponibles=inggredientsSucres
+        b = a
+        self.ingredients.append(a)
+        while b in self.ingredients:
+            b = choice(ingredientsDisponibles)
+        self.ingredients.append(b)
+        if difficulte >= 1:                             #Si la difficulte c'est normal ou difficile : 3 ingredients
+            c = b
+            while c in self.ingredients:
+                c = choice(ingredientsDisponibles)
+            self.ingredients.append(c)
+            if difficulte>=2:                           #Si c'est difficile : 4 ingredients
+                d = c
+                while d in self.ingredients:
+                    d = choice(ingredientsDisponibles)
+                self.ingredients.append(d)
+        def afficherCrepe(self):
+            print("Recette, difficulté = "+self.difficulte==0?"facile":self.difficulte==1?"Normal":"Difficile" + " :")
+            print("Ingrédients : ")
+            for i in range(0,len(self.ingredients)):
+                print(self.ingredients[i])
