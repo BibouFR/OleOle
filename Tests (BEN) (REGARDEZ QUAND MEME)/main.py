@@ -57,20 +57,24 @@ class longuePlateforme(object):
         self.height = height
         self.nb = nb
         self.type = type
-        self.hitbox = (x,y,width,height)
+        self.hitbox = (x,y,width*nb,height)
         self.count = 0
 
     def draw(self,win):
         for i in range(self.nb):
+            self.hitbox = (self.x, self.y, self.width, self.height)
             cube = plateforme(self.x+i*self.width,self.y, self.width,self.height, self.type)
             cube.draw(win)
 
     def collision(self,rect):
         collisionvertical = False
         collisionHorizontal = True
+        print(self.hitbox[0])
 
-        if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
-            if rect[1] < self.hitbox[3] +self.hitbox[1] and rect[1] + rect[3] > self.hitbox[1]:
+        if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2] * self.nb:
+            print("e")
+            if rect[1] < self.hitbox[3] + self.hitbox[1] and rect[1] + rect[3] > self.hitbox[1]:
+                print("f")
 
                 if rect[0] < self.hitbox[0]:  #collision a droite
                     poele.x -= 5
@@ -111,38 +115,7 @@ class plateforme(object):
         win.blit(self.img[self.type], (self.x,self.y))
         pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
 
-    def collision(self,rect):
-        collisionvertical = False
-        collisionHorizontal = True
 
-        if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
-            if rect[1] < self.hitbox[3] +self.hitbox[1] and rect[1] + rect[3] > self.hitbox[1]:
-                print("1 : ",rect[1] + rect[3])
-                print("2 : ",self.hitbox[1] + self.hitbox[3]/2)
-                print("3 : ",self.hitbox[1] -50)
-                print("\n")
-                """if rect[0] < self.hitbox[0]:  #collision a droite
-                    poele.x -= 5
-
-                elif rect[0] + rect[2] > self.hitbox[0]:
-                    poele.x += 5"""
-
-                if ((rect[1] + rect[3]) <= (self.hitbox[1] + self.hitbox[3]/2)) and ((rect[1] + rect[3]) >= (self.hitbox[1] -50)) :
-                    poele.y = self.hitbox[1] - 10
-                    print("yeeeeeeeeeees",self.hitbox[1])
-                    poele.isJump = False
-                    poele.jumpCount = 10
-
-                """if rect[1] <= self.hitbox[1] + self.hitbox[3]//2:
-                    poele.y = self.hitbox[1]+self.hitbox[3] -5
-                    poele.isJump = False
-                    poele.jumpCount = 10"""
-
-
-
-
-                return True
-        return False
 
 def redrawGameWindow():
     global walkCount
@@ -167,7 +140,7 @@ while run:
 
     for objectt in objects:
         if objectt.collision(poele.hitbox):
-            #print('hit')
+            print('hit')
             a = 6
         objectt.x -= 3.4
         if objectt.x < -objectt.width * objectt.nb:
@@ -184,7 +157,7 @@ while run:
             run = False
 
         if event.type == pygame.USEREVENT+1:
-            objects.append(longuePlateforme(560,random.randrange(200,330),64,64,random.randrange(1,5),random.randrange(0,2)))
+            objects.append(longuePlateforme(560,random.randrange(200,330),64,64,random.randrange(1,5),random.randrange(0,3)))
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT] and poele.x > poele.vel:
