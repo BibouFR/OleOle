@@ -28,6 +28,7 @@ class joueur(object):
         self.height = height
         self.vel = 5
         self.isJump = False
+        self.istombe = False
         self.jumpCount = 10
         self.left = False
         self.right = False
@@ -50,10 +51,12 @@ class joueur(object):
         #pygame.draw.rect(win,(255,0,0),self.hitbox,2)
 
     def tomber(self,objects):
+        poele.istombe = True
         for objectt in objects:
             if not(objectt.collision(self.hitbox)) and poele.y < 540 - poele.height:
                 poele.y += 4
-                poele.istombe = True
+
+
 
 
 class longuePlateforme(object):
@@ -171,7 +174,7 @@ while run:
         poele.right = False
         poele.walkCount = 0
 
-    if not(poele.isJump):
+    if not(poele.isJump) and not (poele.istombe):
         if keys[pygame.K_SPACE] or keys[pygame.K_UP]:
             poele.isJump = True
             poele.left = False
@@ -179,6 +182,7 @@ while run:
             poele.walkCount = 0
         else:
             poele.tomber(objects)
+            poele.istombe = False
     else:
         if poele.jumpCount >= -10:
             neg = 1
