@@ -1,4 +1,5 @@
 import pygame
+from pygame.locals import *
 import random
 
 pygame.init()
@@ -50,18 +51,9 @@ class joueur(object):
 
     def tomber(self,objects):
         for objectt in objects:
-<<<<<<< HEAD
-            if not(objectt.collision(self.hitbox)) and poele.y < 430 - poele.height:
-=======
             if not(objectt.collision(self.hitbox)) and poele.y < 540 - poele.height:
->>>>>>> 2a1cdc5b36f7bfa0192055fae1ac2a111e8ca7b3
                 poele.y += 4
                 poele.istombe = True
-
-
-
-
-
 
 
 class longuePlateforme(object):
@@ -82,27 +74,27 @@ class longuePlateforme(object):
             cube.draw(win)
 
     def collision(self,rect):
-        collisionvertical = False
-        collisionHorizontal = True
         if self.hitbox[1] > sol.y:
             return True
         else:
             if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2] * self.nb:
                 if rect[1] < self.hitbox[3] + self.hitbox[1] and rect[1] + rect[3] > self.hitbox[1]:
-
-
                     if ((rect[1] + rect[3]) <= (self.hitbox[1] + self.hitbox[3]/2)) and ((rect[1] + rect[3]) >= (self.hitbox[1] -50)):
                         poele.y = self.hitbox[1] - 5 - poele.height
                         poele.isJump = False
                         poele.jumpCount = 10
 
-                    if rect[0] < self.hitbox[0]:  #collision a droite
+                    if ((rect[1]) >= (self.hitbox[1] + self.hitbox[3]/2)) and (rect[1]) <= (self.hitbox[1] +self.hitbox[3]+20):
+                        poele.y = self.hitbox[1] + self.hitbox[3]+ 5
+                        print("stop")
+                        poele.isJump = False
+                        poele.jumpCount = 10
+
+                    if rect[0] < self.hitbox[0] and rect[1] +rect[3] > self.hitbox[1]+20:  #collision a droite
                         poele.x -= 5
-                    elif rect[0] + rect[2] > self.hitbox[0]:
+                    elif rect[0] + rect[2] > self.hitbox[0] and rect[1] +rect[3] > self.hitbox[1]+20:
                         poele.x += 5
                     return True
-
-
             return False
 
 
