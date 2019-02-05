@@ -67,20 +67,8 @@ class plateforme(object):
 
     def collision(self,rect):
         if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
-            if rect[1] < self.hitbox[3] +self.hitbox[1] and rect[1] + rect[3] > self.hitbox[1]:         #Marche pas trop
-                if rect[0] < self.hitbox[0]:                                                               #Marche pas trop
-                    if rect[1] < self.hitbox[1]:                                                                #Marche pas trop
-                        poele.y -= 5                                                                                #Marche pas trop
-                    elif rect[1] + rect[3] > self.hitbox[1] + self.hitbox[3]:
-                        poele.y += 5                                                                        #Marche pas trop
-                poele.x -= 5
-            elif rect[0] + rect[2] > self.hitbox[0] + self.hitbox[2]:
-                if rect[0] < self.hitbox[0]:
-                    if rect[1] < self.hitbox[1]:
-                        poele.y -= 5
-                    elif rect[1] + rect[3] > self.hitbox[1] + self.hitbox[3]:
-                        poele.y += 5
-                poele.x += 5
+            if rect[1] < self.hitbox[3] +self.hitbox[1] and rect[1] + rect[3] > self.hitbox[1]:
+                
                 return True
         return False
 
@@ -104,7 +92,7 @@ while run:
 
     for objectt in objects:
         if objectt.collision(poele.hitbox):
-            #print('hit')
+            print('hit')
             a = 6
         objectt.x -= 1.4
         if objectt.x < -objectt.width:
