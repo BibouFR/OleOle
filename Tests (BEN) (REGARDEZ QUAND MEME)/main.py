@@ -50,8 +50,11 @@ class joueur(object):
 
     def tomber(self,objects):
         for objectt in objects:
-            if not(objectt.collision(self.hitbox)) and poele.y < 440 - poele.height:
+            if not(objectt.collision(self.hitbox)) and poele.y < 430 - poele.height:
                 poele.y += 4
+                poele.istombe = True
+
+
 
 
 
@@ -88,7 +91,6 @@ class longuePlateforme(object):
                         poele.y = self.hitbox[1] - 5 - poele.height
                         poele.isJump = False
                         poele.jumpCount = 10
-                        print("benjamin est con")
 
                     if rect[0] < self.hitbox[0]:  #collision a droite
                         poele.x -= 5
