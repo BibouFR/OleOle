@@ -60,7 +60,7 @@ class joueur(object):
 
 
 class longuePlateforme(object):
-    def __init__(self, x, y, width, height, nb, type):
+    def __init__(self, x, y, width, height, nb, type, ingre, ingrePos):
         self.x = x
         self.y = y
         self.width = width
@@ -69,11 +69,17 @@ class longuePlateforme(object):
         self.type = type
         self.hitbox = (x,y,width*nb,height)
         self.count = 0
+        self.ingre = ingre
+        self.ingrePos = ingrePos
+
 
     def draw(self,win):
         for i in range(self.nb):
             self.hitbox = (self.x, self.y, self.width, self.height)
-            cube = plateforme(self.x+i*self.width,self.y, self.width,self.height, self.type)
+            if i == self.ingrePos:
+                cube = plateforme(self.x+i*self.width,self.y, self.width,self.height, self.type, self.ingre)
+            else:
+                cube = plateforme(self.x+i*self.width,self.y, self.width,self.height, self.type, 999)
             cube.draw(win)
 
     def collision(self,rect):
@@ -103,7 +109,8 @@ class longuePlateforme(object):
 
 class plateforme(object):
     img = [pygame.image.load('../image/BlockFour.png'),pygame.image.load('../image/CommodeBlock.png'),pygame.image.load('../image/LaveVaiselleBlock.png')]
-    def __init__(self, x, y, width, height, type):
+    ingredients = [pygame.image.load('../image/cheese.png'),pygame.image.load('../image/egg.png'),pygame.image.load('../image/tomato.png'),pygame.image.load('../image/sugar.png'),pygame.image.load('../image/ressort.png')]
+    def __init__(self, x, y, width, height, type, numIngre):
         self.x = x
         self.y = y
         self.width = width
@@ -111,12 +118,18 @@ class plateforme(object):
         self.type = type
         self.hitbox = (x,y,width,height)
         self.count = 0
+        self.ing = 0
+        self.numIngre = numIngre
+        if self.numIngre < 5:
+            self.ing = pygame.transform.scale(self.ingredients[self.numIngre],(64,64))
+
 
     def draw(self,win):
         self.hitbox = (self.x,self.y, self.width,self.height)
         win.blit(self.img[self.type], (self.x,self.y))
         #pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
-
+        if self.ing != 0:
+            win.blit(self.ing,(self.x,self.y-self.height))
 
 
 def redrawGameWindow():
@@ -130,9 +143,9 @@ def redrawGameWindow():
     pygame.display.update()
 
 
-sol = longuePlateforme(0,600,64,64,20,0)
+sol = longuePlateforme(0,600,64,64,20,0,999,999)
 poele = joueur(300, 500, 64, 64)
-pygame.time.set_timer(pygame.USEREVENT+1,2750)
+pygame.time.set_timer(pygame.USEREVENT+1,1000)
 
 objects = []
 
@@ -143,7 +156,7 @@ while run:
     for objectt in objects:
         if objectt.collision(poele.hitbox):
             a = 6
-        objectt.x -= 3.4
+        objectt.x -= 14.4
         if objectt.x < -objectt.width * objectt.nb:
             objects.pop(objects.index(objectt))
     bgX -= 1.4
@@ -158,7 +171,8 @@ while run:
             run = False
 
         if event.type == pygame.USEREVENT+1:
-            objects.append(longuePlateforme(1000,random.randrange(350,500),64,64,random.randrange(1,5),random.randrange(0,3)))
+            nbPlatformes = random.randrange(1,5)
+            objects.append(longuePlateforme(1000,random.randrange(350,500),64,64,nbPlatformes,random.randrange(0,3),random.randrange(0,10),random.randrange(0,nbPlatformes)))
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT] and poele.x > poele.vel:
