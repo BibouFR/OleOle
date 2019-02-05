@@ -51,19 +51,22 @@ class joueur(object):
 
 
 class plateforme(object):
-    img = pygame.image.load('grass_64x64.png')
-    def __init__(self, x, y, width, height):
+    img = [pygame.image.load('grass_64x64.png'),pygame.image.load('dirt_64x64.png'),pygame.image.load('grass_dead_64x64.png')]
+    def __init__(self, x, y, width, height, nb, type):
         self.x = x
         self.y = y
         self.width = width
         self.height = height
+        self.nb = nb
+        self.type = type
         self.hitbox = (x,y,width,height)
         self.count = 0
 
     def draw(self,win):
-        self.hitbox = (self.x,self.y, self.width,self.height)
-        win.blit(self.img, (self.x,self.y))
-        pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
+        for i in range(self.nb):
+            self.hitbox = (self.x+i*self.x,self.y, self.width,self.height)
+            win.blit(self.img[self.type], (self.x+i*self.x,self.y))
+            pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
 
     def collision(self,rect):
         if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
@@ -80,12 +83,15 @@ def redrawGameWindow():
     win.blit(bg, (bgX,0))
     win.blit(bg, (bgX2,0))
     poele.draw(win)
+    sol.draw(win)
     for x in objects:
         x.draw(win)
     pygame.display.update()
 
-poele = joueur(300, 410, 64, 64)
-pygame.time.set_timer(pygame.USEREVENT+1,random.randrange(2500,5000))
+
+sol = plateforme(0,440,64,64,40,0)
+poele = joueur(300, 370, 64, 64)
+pygame.time.set_timer(pygame.USEREVENT+1,2500)
 
 objects = []
 
@@ -95,11 +101,14 @@ while run:
 
     for objectt in objects:
         if objectt.collision(poele.hitbox):
-            print('hit')
+            #print('hit')
             a = 6
         objectt.x -= 1.4
         if objectt.x < -objectt.width:
             objects.pop(objects.index(objectt))
+        for ob in objects:
+            if objectt.x < ob.x and objectt.x + objectt.width > ob.x:       #pas 2 blocs sur la meme hauteur
+                objects.pop(objects.index(objectt))
 
     bgX -= 1.4
     bgX2 -= 1.4
@@ -113,7 +122,7 @@ while run:
             run = False
 
         if event.type == pygame.USEREVENT+1:
-            objects.append(plateforme(560,random.randrange(250,400),64,64))
+            objects.append(plateforme(random.randrange(560,800),random.randrange(250,400),64,64,3,random.randrange(0,2)))
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT] and poele.x > poele.vel:
