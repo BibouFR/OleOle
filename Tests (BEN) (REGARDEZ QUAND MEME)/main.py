@@ -131,11 +131,10 @@ class plateforme(object):
                     poele.jumpCount = 10
 
 
-                """elif rect[1] + rect[3] > self.hitbox[1]:
+                elif rect[1] + rect[3] > self.hitbox[1]:
                     poele.y = self.hitbox[1] + 5
-                    collisionvertical = False
                     poele.isJump = False
-                    poele.jumpCount = 10"""
+                    poele.jumpCount = 10
 
                 return True
         return False
