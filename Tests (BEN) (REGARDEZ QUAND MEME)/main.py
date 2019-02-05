@@ -64,8 +64,8 @@ class plateforme(object):
 
     def draw(self,win):
         for i in range(self.nb):
-            self.hitbox = (self.x+i*self.x,self.y, self.width,self.height)
-            win.blit(self.img[self.type], (self.x+i*self.x,self.y))
+            self.hitbox = (self.x+i*self.width,self.y, self.width,self.height)
+            win.blit(self.img[self.type], (self.x+i*self.width,self.y))
             pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
 
     def collision(self,rect):
@@ -168,12 +168,12 @@ while run:
             if poele.jumpCount < 0:
                 neg = -1
             poele.y -= (poele.jumpCount ** 2) * 0.5 * neg
-            print(poele.y)
+            #print(poele.y)
             poele.jumpCount -= 1
         else:
             poele.isJump = False
             poele.jumpCount = 10
-            print("\n")
+            #print("\n")
 
 
     redrawGameWindow()
