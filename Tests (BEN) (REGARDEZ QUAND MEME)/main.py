@@ -48,6 +48,19 @@ class joueur(object):
         self.hitbox = (self.x + 17, self.y + 10, 31, 57)
         pygame.draw.rect(win,(255,0,0),self.hitbox,2)
 
+    def tomber(self,objects):
+        for objectt in objects:
+            if not(objectt.collision(self.hitbox)) and poele.y < 440 - poele.height:
+                if poele.jumpCount >= -10:
+                    neg = 1
+                    if poele.jumpCount < 0:
+                        neg = -1
+                    poele.y -= (poele.jumpCount ** 2) * 0.5 * neg
+                    poele.jumpCount -= 1
+
+
+
+
 
 class longuePlateforme(object):
     def __init__(self, x, y, width, height, nb, type):
@@ -69,34 +82,27 @@ class longuePlateforme(object):
     def collision(self,rect):
         collisionvertical = False
         collisionHorizontal = True
-        print(self.hitbox[0])
-
-        if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2] * self.nb:
-            print("e")
-            if rect[1] < self.hitbox[3] + self.hitbox[1] and rect[1] + rect[3] > self.hitbox[1]:
-                print("f")
-
-                if rect[0] < self.hitbox[0]:  #collision a droite
-                    poele.x -= 5
-
-                elif rect[0] + rect[2] > self.hitbox[0]:
-                    poele.x += 5
+        if self.hitbox[1] > sol.y:
+            return True
+        else:
+            if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2] * self.nb:
+                if rect[1] < self.hitbox[3] + self.hitbox[1] and rect[1] + rect[3] > self.hitbox[1]:
 
 
-                if rect[1] <= self.hitbox[1] +self.hitbox[3]:
-                    poele.y = self.hitbox[1]+self.hitbox[3] -5
-                    poele.isJump = False
-                    poele.jumpCount = 10
+                    if ((rect[1] + rect[3]) <= (self.hitbox[1] + self.hitbox[3]/2)) and ((rect[1] + rect[3]) >= (self.hitbox[1] -50)) :
+                        poele.y = self.hitbox[1] - 5 - poele.height
+                        poele.isJump = False
+                        poele.jumpCount = 10
+                        print("benjamin est con")
+
+                    if rect[0] < self.hitbox[0]:  #collision a droite
+                        poele.x -= 5
+                    elif rect[0] + rect[2] > self.hitbox[0]:
+                        poele.x += 5
+                    return True
 
 
-                """elif rect[1] + rect[3] > self.hitbox[1]:
-                    poele.y = self.hitbox[1] + 5
-                    collisionvertical = False
-                    poele.isJump = False
-                    poele.jumpCount = 10"""
-
-                return True
-        return False
+            return False
 
 
 class plateforme(object):
@@ -179,18 +185,18 @@ while run:
             poele.left = False
             poele.right = False
             poele.walkCount = 0
+        else:
+            poele.tomber(objects)
     else:
         if poele.jumpCount >= -10:
             neg = 1
             if poele.jumpCount < 0:
                 neg = -1
             poele.y -= (poele.jumpCount ** 2) * 0.5 * neg
-            #print(poele.y)
             poele.jumpCount -= 1
         else:
             poele.isJump = False
             poele.jumpCount = 10
-            #print("\n")
 
 
     redrawGameWindow()
