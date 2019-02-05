@@ -68,7 +68,10 @@ class plateforme(object):
     def collision(self,rect):
         if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
             if rect[1] < self.hitbox[3] +self.hitbox[1] and rect[1] + rect[3] > self.hitbox[1]:
-                
+                if rect[0] < self.hitbox[0]:
+                    poele.x -= 5
+                elif rect[0] + rect[2] > self.hitbox[0]:
+                    poele.x += 5
                 return True
         return False
 
