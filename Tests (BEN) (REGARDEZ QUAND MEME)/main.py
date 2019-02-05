@@ -49,9 +49,7 @@ class joueur(object):
         pygame.draw.rect(win,(255,0,0),self.hitbox,2)
 
 
-
-class plateforme(object):
-    img = [pygame.image.load('grass_64x64.png'),pygame.image.load('dirt_64x64.png'),pygame.image.load('grass_dead_64x64.png')]
+class longuePlateforme(object):
     def __init__(self, x, y, width, height, nb, type):
         self.x = x
         self.y = y
@@ -64,9 +62,54 @@ class plateforme(object):
 
     def draw(self,win):
         for i in range(self.nb):
-            self.hitbox = (self.x+i*self.width,self.y, self.width,self.height)
-            win.blit(self.img[self.type], (self.x+i*self.width,self.y))
-            pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
+            cube = plateforme(self.x+i*self.width,self.y, self.width,self.height, self.type)
+            cube.draw(win)
+
+    def collision(self,rect):
+        collisionvertical = False
+        collisionHorizontal = True
+
+        if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
+            if rect[1] < self.hitbox[3] +self.hitbox[1] and rect[1] + rect[3] > self.hitbox[1]:
+
+                if rect[0] < self.hitbox[0]:  #collision a droite
+                    poele.x -= 5
+
+                elif rect[0] + rect[2] > self.hitbox[0]:
+                    poele.x += 5
+
+
+                if rect[1] <= self.hitbox[1] +self.hitbox[3]:
+                    poele.y = self.hitbox[1]+self.hitbox[3] -5
+                    poele.isJump = False
+                    poele.jumpCount = 10
+
+
+                """elif rect[1] + rect[3] > self.hitbox[1]:
+                    poele.y = self.hitbox[1] + 5
+                    collisionvertical = False
+                    poele.isJump = False
+                    poele.jumpCount = 10"""
+
+                return True
+        return False
+
+
+class plateforme(object):
+    img = [pygame.image.load('grass_64x64.png'),pygame.image.load('dirt_64x64.png'),pygame.image.load('grass_dead_64x64.png')]
+    def __init__(self, x, y, width, height, type):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.type = type
+        self.hitbox = (x,y,width,height)
+        self.count = 0
+
+    def draw(self,win):
+        self.hitbox = (self.x,self.y, self.width,self.height)
+        win.blit(self.img[self.type], (self.x,self.y))
+        pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
 
     def collision(self,rect):
         collisionvertical = False
@@ -112,9 +155,9 @@ def redrawGameWindow():
     pygame.display.update()
 
 
-sol = plateforme(0,440,64,64,40,0)
+sol = longuePlateforme(0,440,64,64,8,0)
 poele = joueur(300, 370, 64, 64)
-pygame.time.set_timer(pygame.USEREVENT+1,2500)
+pygame.time.set_timer(pygame.USEREVENT+1,2750)
 
 objects = []
 
@@ -126,13 +169,9 @@ while run:
         if objectt.collision(poele.hitbox):
             #print('hit')
             a = 6
-        objectt.x -= 1.4
-        if objectt.x < -objectt.width:
+        objectt.x -= 3.4
+        if objectt.x < -objectt.width * objectt.nb:
             objects.pop(objects.index(objectt))
-        for ob in objects:
-            if objectt.x < ob.x and objectt.x + objectt.width > ob.x:       #pas 2 blocs sur la meme hauteur
-                objects.pop(objects.index(objectt))
-
     bgX -= 1.4
     bgX2 -= 1.4
     if bgX < bg.get_width() * -1:
@@ -145,7 +184,7 @@ while run:
             run = False
 
         if event.type == pygame.USEREVENT+1:
-            objects.append(plateforme(random.randrange(560,800),random.randrange(250,400),64,64,3,random.randrange(0,2)))
+            objects.append(longuePlateforme(560,random.randrange(200,330),64,64,random.randrange(1,5),random.randrange(0,2)))
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT] and poele.x > poele.vel:
