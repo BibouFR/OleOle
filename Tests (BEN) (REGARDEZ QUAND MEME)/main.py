@@ -51,12 +51,7 @@ class joueur(object):
     def tomber(self,objects):
         for objectt in objects:
             if not(objectt.collision(self.hitbox)) and poele.y < 440 - poele.height:
-                if poele.jumpCount >= -10:
-                    neg = 1
-                    if poele.jumpCount < 0:
-                        neg = -1
-                    poele.y -= (poele.jumpCount ** 2) * 0.5 * neg
-                    poele.jumpCount -= 1
+                poele.y += 4
 
 
 
