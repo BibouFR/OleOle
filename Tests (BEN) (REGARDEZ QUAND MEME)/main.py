@@ -99,7 +99,7 @@ class longuePlateforme(object):
 
 
 class plateforme(object):
-    img = [pygame.image.load('grass_64x64.png'),pygame.image.load('dirt_64x64.png'),pygame.image.load('grass_dead_64x64.png')]
+    img = [pygame.image.load('../image/BlockFour.png'),pygame.image.load('../image/CommodeBlock.png'),pygame.image.load('../image/LaveVaiselleBlock.png')]
     def __init__(self, x, y, width, height, type):
         self.x = x
         self.y = y
