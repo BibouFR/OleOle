@@ -51,11 +51,12 @@ class joueur(object):
         #pygame.draw.rect(win,(255,0,0),self.hitbox,2)
 
     def tomber(self,objects):
-        poele.istombe = True
         for objectt in objects:
             if not(objectt.collision(self.hitbox)) and poele.y < 540 - poele.height:
-                poele.y += 4
-
+                poele.y += 1
+                poele.istombe = True
+                #print("tomber :" ,poele.istombe)
+                break
 
 
 
@@ -188,8 +189,7 @@ while run:
     clock.tick(30)
 
     for objectt in objects:
-        if objectt.collision(poele.hitbox):
-            a = 6
+        objectt.collision(poele.hitbox)
         objectt.x -= plateformeSpeed
         if objectt.x < -objectt.width * objectt.nb:
             objects.pop(objects.index(objectt))
@@ -224,25 +224,29 @@ while run:
         poele.right = False
         poele.walkCount = 0
 
-    if not(poele.isJump) and not (poele.istombe):
-        if keys[pygame.K_SPACE] or keys[pygame.K_UP]:
-            poele.isJump = True
-            poele.left = False
-            poele.right = False
-            poele.walkCount = 0
+    if not (poele.istombe):
+        if not(poele.isJump):
+            if keys[pygame.K_SPACE] or keys[pygame.K_UP]:
+                poele.isJump = True
+                poele.left = False
+                poele.right = False
+                poele.walkCount = 0
         else:
-            poele.tomber(objects)
-            poele.istombe = False
+            if poele.jumpCount >= -10:
+                neg = 1
+                if poele.jumpCount < 0:
+                    neg = -1
+                poele.y -= (poele.jumpCount ** 2) * 0.5 * neg
+                poele.jumpCount -= 1
+            else:
+                poele.isJump = False
+                poele.jumpCount = 10
     else:
-        if poele.jumpCount >= -10:
-            neg = 1
-            if poele.jumpCount < 0:
-                neg = -1
-            poele.y -= (poele.jumpCount ** 2) * 0.5 * neg
-            poele.jumpCount -= 1
+        if (poele.y+poele.height < sol.y):
+            poele.tomber(objects)
         else:
-            poele.isJump = False
-            poele.jumpCount = 10
+            poele.istombe = False
+
 
 
     redrawGameWindow()
