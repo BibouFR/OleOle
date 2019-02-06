@@ -111,8 +111,8 @@ class longuePlateforme(object):
                         poele.x += 5
                     return True
             else:
-                if not(poele.isJump):
-                    poele.istombe = True
+                
+                poele.istombe = True
             return False
 
     def toucheIngr(self,rect):
