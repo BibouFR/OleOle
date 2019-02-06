@@ -99,8 +99,13 @@ class longuePlateforme(object):
                         poele.plateforme = True
 
                     if ((rect[1]) >= (self.hitbox[1] + self.hitbox[3]/2)) and (rect[1]) <= (self.hitbox[1] +self.hitbox[3]+20):
+<<<<<<< Updated upstream
                         poele.y = self.hitbox[1] + self.hitbox[3]
                         print("stop")
+=======
+                        poele.y = self.hitbox[1] + self.hitbox[3]+ 5
+                        #print("stop")
+>>>>>>> Stashed changes
                         poele.isJump = False
                         poele.jumpCount = 10
                         poele.istombe = False
@@ -111,7 +116,12 @@ class longuePlateforme(object):
                         poele.x += 5
                     return True
             else:
+<<<<<<< Updated upstream
                 if not(poele.isJump):
+=======
+                if not(poele.isJump) and poele.y != self.hitbox[1] - 5 - poele.height:
+                    #print("peut etre ici")
+>>>>>>> Stashed changes
                     poele.istombe = True
             return False
 
@@ -132,6 +142,9 @@ class longuePlateforme(object):
                         print("sucre")
                     elif self.ingre == 4:
                         print("ressort")
+                        #poele.isJump = True
+                        #poele.walkCount = 0
+
                     self.ingre = 999
 
 class plateforme(object):
@@ -171,10 +184,30 @@ class plateforme(object):
         else:
             return False
 
+
+class ingredient(object):
+    ingredientsImg = [pygame.image.load('../image/cheese.png'),pygame.image.load('../image/oeuf.png'),pygame.image.load('../image/tomato.png'),pygame.image.load('../image/sugar.png'),pygame.image.load('../image/ressort.png')]
+
+    def __init__(self,numIngreImg,numIngre):
+        self.numIngre = numIngre
+        self.x = 20
+        self.y = 720
+        self.width = 32
+        self.height = 32
+        self.petiteImage = pygame.transform.scale(self.ingredientsImg[self.numIngreImg],(32,32))
+
+    def draw(self,win):
+        self.x = 20 + self.numIngre * 52
+        win.blit(self.petiteImage,(self.x,self.y))
+
 def redrawGameWindow():
     global walkCount
     win.blit(bg, (bgX,0))
     win.blit(bg, (bgX2,0))
+    caseingredients = (0, 700, 52*nbIngredients, 68)
+    pygame.draw.rect(win, (255, 255, 255), (caseingredients))
+    for y in mesIngredients:
+        y.draw(win)
     poele.draw(win)
     #sol.draw(win)
     for x in objects:
@@ -184,10 +217,14 @@ def redrawGameWindow():
 
 sol = longuePlateforme(0,564,64,64,20,0,999,999)
 poele = joueur(300, 500, 64, 64)
-plateformeSpeed = 4.4   #14.4 pour du rapide
-plateformeSpawn = 4000  #1000 pour du rapide
+nbIngredients = 0
+plateformeSpeed = 14.4   #14.4 pour du rapide
+plateformeSpawn = 1000  #1000 pour du rapide
 pygame.time.set_timer(pygame.USEREVENT+1,plateformeSpawn)
+pygame.time.set_timer(pygame.USEREVENT+2,5000)
 
+
+mesIngredients = []
 objects = []
 
 run = True
@@ -216,6 +253,11 @@ while run:
             nbPlatformes = random.randrange(1,5)
             objects.append(longuePlateforme(1000,random.randrange(300,500),64,64,nbPlatformes,random.randrange(0,3),random.randrange(0,10),random.randrange(0,nbPlatformes)))
 
+        if event.type == pygame.USEREVENT+2:
+            mesIngredients.append(ingredient(nbIngredients))
+            nbIngredients += 1
+            print('test')
+
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT] and poele.x > poele.vel:
         poele.x -= poele.vel
@@ -230,7 +272,7 @@ while run:
         poele.right = False
         poele.walkCount = 0
 
-    print("tombe : ",poele.istombe,"\njump : ",poele.istombe)
+    #print("tombe : ",poele.istombe,"\njump : ",poele.istombe)
     if not (poele.istombe):  #istombe = False
         if not(poele.isJump):
             if keys[pygame.K_SPACE] or keys[pygame.K_UP]:
