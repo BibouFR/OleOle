@@ -1,6 +1,7 @@
 import pygame
 from pygame.locals import *
 import random
+import gestionRecettes
 
 pygame.init()
 
@@ -99,13 +100,10 @@ class longuePlateforme(object):
                         poele.plateforme = True
 
                     if ((rect[1]) >= (self.hitbox[1] + self.hitbox[3]/2)) and (rect[1]) <= (self.hitbox[1] +self.hitbox[3]+20):
-<<<<<<< Updated upstream
                         poele.y = self.hitbox[1] + self.hitbox[3]
                         print("stop")
-=======
                         poele.y = self.hitbox[1] + self.hitbox[3]+ 5
                         #print("stop")
->>>>>>> Stashed changes
                         poele.isJump = False
                         poele.jumpCount = 10
                         poele.istombe = False
@@ -116,12 +114,8 @@ class longuePlateforme(object):
                         poele.x += 5
                     return True
             else:
-<<<<<<< Updated upstream
-                if not(poele.isJump):
-=======
                 if not(poele.isJump) and poele.y != self.hitbox[1] - 5 - poele.height:
                     #print("peut etre ici")
->>>>>>> Stashed changes
                     poele.istombe = True
             return False
 
@@ -204,10 +198,10 @@ def redrawGameWindow():
     global walkCount
     win.blit(bg, (bgX,0))
     win.blit(bg, (bgX2,0))
-    caseingredients = (0, 700, 52*nbIngredients, 68)
-    pygame.draw.rect(win, (255, 255, 255), (caseingredients))
-    for y in mesIngredients:
-        y.draw(win)
+    #caseingredients = (0, 700, 52*nbIngredients, 68)
+    #pygame.draw.rect(win, (255, 255, 255), (caseingredients))
+    #for y in mesIngredients:
+     #   y.draw(win)
     poele.draw(win)
     #sol.draw(win)
     for x in objects:
@@ -217,14 +211,14 @@ def redrawGameWindow():
 
 sol = longuePlateforme(0,564,64,64,20,0,999,999)
 poele = joueur(300, 500, 64, 64)
-nbIngredients = 0
+#nbIngredients = 0
 plateformeSpeed = 14.4   #14.4 pour du rapide
 plateformeSpawn = 1000  #1000 pour du rapide
 pygame.time.set_timer(pygame.USEREVENT+1,plateformeSpawn)
 pygame.time.set_timer(pygame.USEREVENT+2,5000)
 
 
-mesIngredients = []
+#mesIngredients = []
 objects = []
 
 run = True
@@ -253,10 +247,10 @@ while run:
             nbPlatformes = random.randrange(1,5)
             objects.append(longuePlateforme(1000,random.randrange(300,500),64,64,nbPlatformes,random.randrange(0,3),random.randrange(0,10),random.randrange(0,nbPlatformes)))
 
-        if event.type == pygame.USEREVENT+2:
-            mesIngredients.append(ingredient(nbIngredients))
-            nbIngredients += 1
-            print('test')
+        #if event.type == pygame.USEREVENT+2:
+         #   mesIngredients.append(ingredient(nbIngredients))
+          #  nbIngredients += 1
+           # print('test')
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT] and poele.x > poele.vel:
