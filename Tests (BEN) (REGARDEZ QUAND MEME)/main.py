@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
+from gestionRecettes import *
 import random
-import gestionRecettes
 
 pygame.init()
 
@@ -16,8 +16,12 @@ walkLeft = [pygame.image.load('L1.png'), pygame.image.load('L2.png'), pygame.ima
 char = pygame.image.load('standing.png')
 
 bg = pygame.image.load('FondNormale.png')
+bglune = pygame.image.load('bg.jpg')
 bgX = 0
 bgX2 = bg.get_width()
+
+bgXlune = 0
+bgX2lune = bglune.get_width()
 
 clock = pygame.time.Clock()
 
@@ -103,6 +107,7 @@ class longuePlateforme(object):
                         poele.y = self.hitbox[1] + self.hitbox[3]
                         #print("stop")
                         poele.y = self.hitbox[1] + self.hitbox[3]+ 5
+                        print("stop")
                         #print("stop")
                         poele.isJump = False
                         poele.jumpCount = 10
@@ -113,10 +118,12 @@ class longuePlateforme(object):
                     elif rect[0] + rect[2] > self.hitbox[0] and rect[1] +rect[3] > self.hitbox[1]+20:
                         poele.x += 5
                     return True
+            elif poele.isJump:
+                poele.istombe = False
+            elif poele.y < self.y and rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2] * self.nb:
+                poele.istombe = False
             else:
-                if not(poele.isJump) and poele.y != self.hitbox[1] - 5 - poele.height:
-                    #print("peut etre ici")
-                    poele.istombe = True
+                poele.istombe = True
             return False
 
     def toucheIngr(self,rect):
@@ -196,17 +203,26 @@ class ingredient(object):
 
 def redrawGameWindow():
     global walkCount
-    win.blit(bg, (bgX,0))
-    win.blit(bg, (bgX2,0))
-    #caseingredients = (0, 700, 52*nbIngredients, 68)
-    #pygame.draw.rect(win, (255, 255, 255), (caseingredients))
-    #for y in mesIngredients:
-     #   y.draw(win)
-    poele.draw(win)
-    #sol.draw(win)
-    for x in objects:
-        x.draw(win)
-    pygame.display.update()
+    if not (modelunaire):
+
+        win.blit(bg, (bgX,0))
+        win.blit(bg, (bgX2,0))
+        #caseingredients = (0, 700, 52*nbIngredients, 68)
+        #pygame.draw.rect(win, (255, 255, 255), (caseingredients))
+        #for y in mesIngredients:
+         #   y.draw(win)
+        poele.draw(win)
+        #sol.draw(win)
+        for x in objects:
+            x.draw(win)
+        pygame.display.update()
+    else:
+        win.blit(bglune, (bgXlune,0))
+        win.blit(bglune, (bgX2lune,0))
+        poele.draw(win)
+        poele.draw(win)
+        #sol.draw(win)
+        pygame.display.update()
 
 
 sol = longuePlateforme(0,564,64,64,20,0,999,999)
@@ -218,9 +234,12 @@ pygame.time.set_timer(pygame.USEREVENT+1,plateformeSpawn)
 pygame.time.set_timer(pygame.USEREVENT+2,5000)
 
 
+testcr = Crepes(2)
+
 #mesIngredients = []
 objects = []
 
+modelunaire = False
 run = True
 while run:
     clock.tick(30)
@@ -294,5 +313,10 @@ while run:
 
 
     redrawGameWindow()
+    if i%2==0:
+        AfficheRecette(win,0,0,testcr)
+    else:
+        AfficheRecette(win,0,0,testcr, (True, testcr.ingredients[1]))
+
 
 pygame.quit()
