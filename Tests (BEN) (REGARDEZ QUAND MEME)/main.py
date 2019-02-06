@@ -115,7 +115,7 @@ class longuePlateforme(object):
                     return True
             else:
 <<<<<<< HEAD
-                
+
                 poele.istombe = True
 =======
                 if not(poele.isJump) and poele.y != self.hitbox[1] - 5 - poele.height:
@@ -222,6 +222,8 @@ plateformeSpawn = 1000  #1000 pour du rapide
 pygame.time.set_timer(pygame.USEREVENT+1,plateformeSpawn)
 pygame.time.set_timer(pygame.USEREVENT+2,5000)
 
+testCr = Crepes(2)
+AfficheRecette(win, 0, 0, testCr)
 
 #mesIngredients = []
 objects = []
