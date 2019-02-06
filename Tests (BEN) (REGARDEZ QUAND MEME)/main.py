@@ -101,7 +101,7 @@ class longuePlateforme(object):
 
                     if ((rect[1]) >= (self.hitbox[1] + self.hitbox[3]/2)) and (rect[1]) <= (self.hitbox[1] +self.hitbox[3]+20):
                         poele.y = self.hitbox[1] + self.hitbox[3]
-                        print("stop")
+                        #print("stop")
                         poele.y = self.hitbox[1] + self.hitbox[3]+ 5
                         #print("stop")
                         poele.isJump = False
