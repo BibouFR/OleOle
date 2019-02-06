@@ -16,8 +16,12 @@ walkLeft = [pygame.image.load('L1.png'), pygame.image.load('L2.png'), pygame.ima
 char = pygame.image.load('standing.png')
 
 bg = pygame.image.load('FondNormale.png')
+bglune = pygame.image.load('bg.jpg')
 bgX = 0
 bgX2 = bg.get_width()
+
+bgXlune = 0
+bgX2lune = bglune.get_width()
 
 clock = pygame.time.Clock()
 
@@ -197,17 +201,26 @@ class ingredient(object):
 
 def redrawGameWindow():
     global walkCount
-    win.blit(bg, (bgX,0))
-    win.blit(bg, (bgX2,0))
-    #caseingredients = (0, 700, 52*nbIngredients, 68)
-    #pygame.draw.rect(win, (255, 255, 255), (caseingredients))
-    #for y in mesIngredients:
-     #   y.draw(win)
-    poele.draw(win)
-    #sol.draw(win)
-    for x in objects:
-        x.draw(win)
-    pygame.display.update()
+    if not (modelunaire):
+
+        win.blit(bg, (bgX,0))
+        win.blit(bg, (bgX2,0))
+        #caseingredients = (0, 700, 52*nbIngredients, 68)
+        #pygame.draw.rect(win, (255, 255, 255), (caseingredients))
+        #for y in mesIngredients:
+         #   y.draw(win)
+        poele.draw(win)
+        #sol.draw(win)
+        for x in objects:
+            x.draw(win)
+        pygame.display.update()
+    else:
+        win.blit(bglune, (bgXlune,0))
+        win.blit(bglune, (bgX2lune,0))
+        poele.draw(win)
+        poele.draw(win)
+        #sol.draw(win)
+        pygame.display.update()
 
 
 sol = longuePlateforme(0,564,64,64,20,0,999,999)
@@ -222,6 +235,7 @@ pygame.time.set_timer(pygame.USEREVENT+2,5000)
 #mesIngredients = []
 objects = []
 
+modelunaire = False
 run = True
 while run:
     clock.tick(30)
