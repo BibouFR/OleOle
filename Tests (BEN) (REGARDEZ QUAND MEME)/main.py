@@ -145,7 +145,9 @@ def redrawGameWindow():
 
 sol = longuePlateforme(0,600,64,64,20,0,999,999)
 poele = joueur(300, 500, 64, 64)
-pygame.time.set_timer(pygame.USEREVENT+1,1000)
+plateformeSpeed = 4.4   #14.4 pour du rapide
+plateformeSpawn = 2750  #1000 pour du rapide
+pygame.time.set_timer(pygame.USEREVENT+1,plateformeSpawn)
 
 objects = []
 
@@ -156,7 +158,7 @@ while run:
     for objectt in objects:
         if objectt.collision(poele.hitbox):
             a = 6
-        objectt.x -= 14.4
+        objectt.x -= plateformeSpeed
         if objectt.x < -objectt.width * objectt.nb:
             objects.pop(objects.index(objectt))
     bgX -= 1.4
