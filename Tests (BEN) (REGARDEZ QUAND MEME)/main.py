@@ -71,6 +71,8 @@ class longuePlateforme(object):
         self.count = 0
         self.ingre = ingre
         self.ingrePos = ingrePos
+        self.estTouché = False
+
 
 
     def draw(self,win):
@@ -106,6 +108,24 @@ class longuePlateforme(object):
                     return True
             return False
 
+    def toucheIngr(self,rect):
+        for i in range(self.nb):
+            self.hitbox = (self.x, self.y, self.width, self.height)
+            if i == self.ingrePos:
+                cube = plateforme(self.x+i*self.width,self.y, self.width,self.height, self.type, self.ingre)
+                self.estTouché = cube.toucheIngre(rect)
+                if self.estTouché:
+                    if self.ingre == 0:
+                        print("fromage")
+                    elif self.ingre == 1:
+                        print("oeuf")
+                    elif self.ingre == 2:
+                        print("tomate")
+                    elif self.ingre == 3:
+                        print("sucre")
+                    elif self.ingre == 4:
+                        print("ressort")
+                    self.ingre = 999
 
 class plateforme(object):
     img = [pygame.image.load('../image/BlockFour.png'),pygame.image.load('../image/CommodeBlock.png'),pygame.image.load('../image/LaveVaiselleBlock.png')]
@@ -120,6 +140,7 @@ class plateforme(object):
         self.count = 0
         self.ing = 0
         self.numIngre = numIngre
+        self.hitboxIngre = (x,y-width,width,height)
         if self.numIngre < 5:
             self.ing = pygame.transform.scale(self.ingredients[self.numIngre],(64,64))
 
@@ -130,7 +151,18 @@ class plateforme(object):
         #pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
         if self.ing != 0:
             win.blit(self.ing,(self.x,self.y-self.height))
+            self.hitboxIngre = (self.x,self.y-self.height, self.width,self.height)
+            pygame.draw.rect(win, (255,0,0), self.hitboxIngre, 2)
 
+
+    def toucheIngre(self,rect):
+        if rect[0] + rect[2] > self.hitboxIngre[0] and rect[0] < self.hitboxIngre[0] + self.hitboxIngre[2]:
+            if rect[1] < self.hitboxIngre[3] + self.hitboxIngre[1] and rect[1] + rect[3] > self.hitboxIngre[1]:
+                if self.numIngre < 5:
+                    print('touché')
+                    return True
+        else:
+            return False
 
 def redrawGameWindow():
     global walkCount
@@ -146,7 +178,7 @@ def redrawGameWindow():
 sol = longuePlateforme(0,600,64,64,20,0,999,999)
 poele = joueur(300, 500, 64, 64)
 plateformeSpeed = 4.4   #14.4 pour du rapide
-plateformeSpawn = 2750  #1000 pour du rapide
+plateformeSpawn = 4000  #1000 pour du rapide
 pygame.time.set_timer(pygame.USEREVENT+1,plateformeSpawn)
 
 objects = []
@@ -161,6 +193,8 @@ while run:
         objectt.x -= plateformeSpeed
         if objectt.x < -objectt.width * objectt.nb:
             objects.pop(objects.index(objectt))
+        if objectt.toucheIngr(poele.hitbox):
+            a = 6
     bgX -= 1.4
     bgX2 -= 1.4
     if bgX < bg.get_width() * -1:
