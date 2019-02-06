@@ -117,11 +117,6 @@ class longuePlateforme(object):
             elif poele.y < self.y and rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2] * self.nb:
                 poele.istombe = False
             else:
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> 26cc42dc78957d9684243f97cc8f61e267be580b
                 poele.istombe = True
             return False
 
@@ -223,8 +218,6 @@ plateformeSpawn = 1000  #1000 pour du rapide
 pygame.time.set_timer(pygame.USEREVENT+1,plateformeSpawn)
 pygame.time.set_timer(pygame.USEREVENT+2,5000)
 
-testCr = Crepes(2)
-AfficheRecette(win, 0, 0, testCr)
 
 #mesIngredients = []
 objects = []
