@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
+from gestionRecettes import *
 import random
-import gestionRecettes
 
 pygame.init()
 
@@ -219,6 +219,8 @@ pygame.time.set_timer(pygame.USEREVENT+1,plateformeSpawn)
 pygame.time.set_timer(pygame.USEREVENT+2,5000)
 
 
+testcr = Crepes(2)
+
 #mesIngredients = []
 objects = []
 
@@ -295,5 +297,10 @@ while run:
 
 
     redrawGameWindow()
+    if i%2==0:
+        AfficheRecette(win,0,0,testcr)
+    else:
+        AfficheRecette(win,0,0,testcr, (True, testcr.ingredients[1]))
+
 
 pygame.quit()
