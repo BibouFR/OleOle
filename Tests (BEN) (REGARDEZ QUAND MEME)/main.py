@@ -54,7 +54,7 @@ class joueur(object):
         for objectt in objects:
             if not(objectt.collision(self.hitbox)) and poele.y + poele.height <= sol.y:
                 poele.y += 5
-                #poele.istombe = True
+                #poele.plateforme = False
 
 
 
@@ -92,13 +92,14 @@ class longuePlateforme(object):
             if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2] * self.nb:
                 if rect[1] < self.hitbox[3] + self.hitbox[1] and rect[1] + rect[3] > self.hitbox[1]:
                     if ((rect[1] + rect[3]) <= (self.hitbox[1] + self.hitbox[3]/2)) and ((rect[1] + rect[3]) >= (self.hitbox[1] -50)):
-                        poele.y = self.hitbox[1] - 5 - poele.height
+                        poele.y = self.hitbox[1] - poele.height
                         poele.isJump = False
                         poele.jumpCount = 10
                         poele.istombe = False
+                        poele.plateforme = True
 
                     if ((rect[1]) >= (self.hitbox[1] + self.hitbox[3]/2)) and (rect[1]) <= (self.hitbox[1] +self.hitbox[3]+20):
-                        poele.y = self.hitbox[1] + self.hitbox[3]+ 5
+                        poele.y = self.hitbox[1] + self.hitbox[3]
                         print("stop")
                         poele.isJump = False
                         poele.jumpCount = 10
@@ -110,10 +111,9 @@ class longuePlateforme(object):
                         poele.x += 5
                     return True
             else:
-                if not(poele.isJump) and poele.y != self.hitbox[1] - 5 - poele.height:
-                    print("peut etre ici")
+                if not(poele.isJump):
                     poele.istombe = True
-                    return False
+            return False
 
     def toucheIngr(self,rect):
         for i in range(self.nb):
@@ -214,7 +214,7 @@ while run:
 
         if event.type == pygame.USEREVENT+1:
             nbPlatformes = random.randrange(1,5)
-            objects.append(longuePlateforme(1000,random.randrange(350,500),64,64,nbPlatformes,random.randrange(0,3),random.randrange(0,10),random.randrange(0,nbPlatformes)))
+            objects.append(longuePlateforme(1000,random.randrange(300,500),64,64,nbPlatformes,random.randrange(0,3),random.randrange(0,10),random.randrange(0,nbPlatformes)))
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT] and poele.x > poele.vel:
@@ -238,6 +238,7 @@ while run:
                 poele.left = False
                 poele.right = False
                 poele.walkCount = 0
+
         else:
             if poele.jumpCount >= -10:
                 neg = 1
