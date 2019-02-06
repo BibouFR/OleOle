@@ -52,11 +52,9 @@ class joueur(object):
 
     def tomber(self,objects):
         for objectt in objects:
-            if not(objectt.collision(self.hitbox)) and poele.y < 540 - poele.height:
-                poele.y += 1
-                poele.istombe = True
-                #print("tomber :" ,poele.istombe)
-                break
+            if not(objectt.collision(self.hitbox)) and poele.y + poele.height <= sol.y:
+                poele.y += 5
+                #poele.istombe = True
 
 
 
@@ -72,6 +70,8 @@ class longuePlateforme(object):
         self.count = 0
         self.ingre = ingre
         self.ingrePos = ingrePos
+        self.estTouché = False
+
 
 
     def draw(self,win):
@@ -84,8 +84,10 @@ class longuePlateforme(object):
             cube.draw(win)
 
     def collision(self,rect):
-        if self.hitbox[1] > sol.y:
+        #print("1 : ",poele.y+ poele.height,"\n2 : ", sol.y)
+        if poele.y+ poele.height >= sol.y:
             return True
+            poele.istombe = False
         else:
             if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2] * self.nb:
                 if rect[1] < self.hitbox[3] + self.hitbox[1] and rect[1] + rect[3] > self.hitbox[1]:
@@ -93,24 +95,48 @@ class longuePlateforme(object):
                         poele.y = self.hitbox[1] - 5 - poele.height
                         poele.isJump = False
                         poele.jumpCount = 10
+                        poele.istombe = False
 
                     if ((rect[1]) >= (self.hitbox[1] + self.hitbox[3]/2)) and (rect[1]) <= (self.hitbox[1] +self.hitbox[3]+20):
                         poele.y = self.hitbox[1] + self.hitbox[3]+ 5
                         print("stop")
                         poele.isJump = False
                         poele.jumpCount = 10
+                        poele.istombe = False
 
                     if rect[0] < self.hitbox[0] and rect[1] +rect[3] > self.hitbox[1]+20:  #collision a droite
                         poele.x -= 5
                     elif rect[0] + rect[2] > self.hitbox[0] and rect[1] +rect[3] > self.hitbox[1]+20:
                         poele.x += 5
                     return True
-            return False
+            else:
+                if not(poele.isJump) and poele.y != self.hitbox[1] - 5 - poele.height:
+                    print("peut etre ici")
+                    poele.istombe = True
+                    return False
 
+    def toucheIngr(self,rect):
+        for i in range(self.nb):
+            self.hitbox = (self.x, self.y, self.width, self.height)
+            if i == self.ingrePos:
+                cube = plateforme(self.x+i*self.width,self.y, self.width,self.height, self.type, self.ingre)
+                self.estTouché = cube.toucheIngre(rect)
+                if self.estTouché:
+                    if self.ingre == 0:
+                        print("fromage")
+                    elif self.ingre == 1:
+                        print("oeuf")
+                    elif self.ingre == 2:
+                        print("tomate")
+                    elif self.ingre == 3:
+                        print("sucre")
+                    elif self.ingre == 4:
+                        print("ressort")
+                    self.ingre = 999
 
 class plateforme(object):
     img = [pygame.image.load('../image/BlockFour.png'),pygame.image.load('../image/CommodeBlock.png'),pygame.image.load('../image/LaveVaiselleBlock.png')]
-    ingredients = [pygame.image.load('../image/cheese.png'),pygame.image.load('../image/egg.png'),pygame.image.load('../image/tomato.png'),pygame.image.load('../image/sugar.png'),pygame.image.load('../image/ressort.png')]
+    ingredients = [pygame.image.load('../image/cheese.png'),pygame.image.load('../image/oeuf.png'),pygame.image.load('../image/tomato.png'),pygame.image.load('../image/sugar.png'),pygame.image.load('../image/ressort.png')]
     def __init__(self, x, y, width, height, type, numIngre):
         self.x = x
         self.y = y
@@ -121,6 +147,7 @@ class plateforme(object):
         self.count = 0
         self.ing = 0
         self.numIngre = numIngre
+        self.hitboxIngre = (x,y-width,width,height)
         if self.numIngre < 5:
             self.ing = pygame.transform.scale(self.ingredients[self.numIngre],(64,64))
 
@@ -131,7 +158,18 @@ class plateforme(object):
         #pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
         if self.ing != 0:
             win.blit(self.ing,(self.x,self.y-self.height))
+            self.hitboxIngre = (self.x,self.y-self.height, self.width,self.height)
+            pygame.draw.rect(win, (255,0,0), self.hitboxIngre, 2)
 
+
+    def toucheIngre(self,rect):
+        if rect[0] + rect[2] > self.hitboxIngre[0] and rect[0] < self.hitboxIngre[0] + self.hitboxIngre[2]:
+            if rect[1] < self.hitboxIngre[3] + self.hitboxIngre[1] and rect[1] + rect[3] > self.hitboxIngre[1]:
+                if self.numIngre < 5:
+                    print('touché')
+                    return True
+        else:
+            return False
 
 def redrawGameWindow():
     global walkCount
@@ -144,10 +182,10 @@ def redrawGameWindow():
     pygame.display.update()
 
 
-sol = longuePlateforme(0,600,64,64,20,0,999,999)
+sol = longuePlateforme(0,564,64,64,20,0,999,999)
 poele = joueur(300, 500, 64, 64)
 plateformeSpeed = 4.4   #14.4 pour du rapide
-plateformeSpawn = 2750  #1000 pour du rapide
+plateformeSpawn = 4000  #1000 pour du rapide
 pygame.time.set_timer(pygame.USEREVENT+1,plateformeSpawn)
 
 objects = []
@@ -161,6 +199,8 @@ while run:
         objectt.x -= plateformeSpeed
         if objectt.x < -objectt.width * objectt.nb:
             objects.pop(objects.index(objectt))
+        if objectt.toucheIngr(poele.hitbox):
+            a = 6
     bgX -= 1.4
     bgX2 -= 1.4
     if bgX < bg.get_width() * -1:
@@ -190,7 +230,8 @@ while run:
         poele.right = False
         poele.walkCount = 0
 
-    if not (poele.istombe):
+    print("tombe : ",poele.istombe,"\njump : ",poele.istombe)
+    if not (poele.istombe):  #istombe = False
         if not(poele.isJump):
             if keys[pygame.K_SPACE] or keys[pygame.K_UP]:
                 poele.isJump = True
@@ -207,7 +248,7 @@ while run:
             else:
                 poele.isJump = False
                 poele.jumpCount = 10
-    else:
+    else: #istombe = True
         if (poele.y+poele.height < sol.y):
             poele.tomber(objects)
         else:
