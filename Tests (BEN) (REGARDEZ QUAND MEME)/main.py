@@ -102,7 +102,6 @@ class longuePlateforme(object):
                     if ((rect[1]) >= (self.hitbox[1] + self.hitbox[3]/2)) and (rect[1]) <= (self.hitbox[1] +self.hitbox[3]+20):
                         poele.y = self.hitbox[1] + self.hitbox[3]
                         print("stop")
-                        poele.y = self.hitbox[1] + self.hitbox[3]+ 5
                         #print("stop")
                         poele.isJump = False
                         poele.jumpCount = 10
@@ -113,15 +112,17 @@ class longuePlateforme(object):
                     elif rect[0] + rect[2] > self.hitbox[0] and rect[1] +rect[3] > self.hitbox[1]+20:
                         poele.x += 5
                     return True
+            elif poele.isJump:
+                poele.istombe = False
+            elif poele.y < self.y and rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2] * self.nb:
+                poele.istombe = False
             else:
 <<<<<<< HEAD
+<<<<<<< HEAD
 
-                poele.istombe = True
 =======
-                if not(poele.isJump) and poele.y != self.hitbox[1] - 5 - poele.height:
-                    #print("peut etre ici")
-                    poele.istombe = True
->>>>>>> 811116375dd8ec30ab1604c06f2411884069625f
+>>>>>>> 26cc42dc78957d9684243f97cc8f61e267be580b
+                poele.istombe = True
             return False
 
     def toucheIngr(self,rect):
