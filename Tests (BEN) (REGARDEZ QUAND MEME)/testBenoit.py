@@ -1,4 +1,5 @@
 import pygame
+from pygame import *
 from random import *
 
 class Crepes:
@@ -40,6 +41,9 @@ class Crepes:
         for i in range(0,len(self.ingredients)):
             print("\t- "+self.ingredients[i])
 
+def tableau(win, hitbox):
+    pygame.draw.rect(win, (255,0,0), hitbox, 2)
+
 pygame.init()
 winwidth=500
 winheight=400
@@ -49,5 +53,15 @@ testcr = Crepes(1)
 print(testcr.ingredients)
 testcr.afficherCrepe()
 
-while 1:
-    print("lol")
+hitbox = (100,100,100,100)
+
+pygame.draw.rect(win, (255,255,255), hitbox, 2)
+pygame.display.flip()
+
+a=True
+while a:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            a = False
+
+pygame.quit()
