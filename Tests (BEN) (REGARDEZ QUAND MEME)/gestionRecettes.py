@@ -87,25 +87,3 @@ def AfficheRecette(win, x, y, crepe):
         nb += 50
 
     pygame.display.flip()
-
-
-pygame.init()
-winwidth=500
-winheight=400
-win = pygame.display.set_mode((winwidth,winheight))
-
-testcrfacile = Crepes(0)
-testcrmoy = Crepes(1)
-testcrdif = Crepes(2)
-
-AfficheRecette(win, 0,0, testcrfacile)
-AfficheRecette(win, 150, 0, testcrmoy)
-AfficheRecette(win, 300, 0, testcrdif)
-
-a=True
-while a:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            a = False
-
-pygame.quit()
