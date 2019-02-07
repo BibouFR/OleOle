@@ -289,7 +289,6 @@ pygame.time.set_timer(pygame.USEREVENT+2,5000)
 
 start_ticks=pygame.time.get_ticks()
 
-#ererer
 testcr = Crepes(2)
 
 mesIngredients = []
