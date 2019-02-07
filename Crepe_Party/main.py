@@ -322,15 +322,17 @@ def endScreen():
         #win.blit(bg, (bgX2,0))
 
         font2 = pygame.font.SysFont('comicsans', 80)
+        prevtextscore = font2.render("Record : " + str(updateFile()), True,(255,255,255))
+        win.blit(prevtextscore, (winwidht/2 - prevtextscore.get_width()/2,100))
         textscore = font2.render("Score : " + str(score), True,(255,255,255))
         win.blit(textscore, (winwidht/2 - textscore.get_width()/2,200))
         pygame.display.update()
 
-"""
+
 def updateFile():
     f = open('scores.txt','r')
     file = f.readlines()
-    last = int{file[0]}
+    last = int(file[0])
 
     if last < int(score):
         f.close
@@ -341,7 +343,7 @@ def updateFile():
         return score
 
     return last
-"""
+
 sol = longuePlateforme(0,564,64,64,20,0,999,999)
 poele = joueur(300, 500, 64, 64)
 
