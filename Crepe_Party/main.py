@@ -309,7 +309,7 @@ def redrawGameWindow():
         pygame.display.update()
         #poele.draw(win)
         #sol.draw(win)
-
+"""
 def endScreen():
     fin = True
     while fin:
@@ -326,11 +326,26 @@ def endScreen():
         win.blit(textscore, (winwidht/2 - textscore.get_width()/2,200))
         pygame.display.update()
 
+"""
+def updateFile():
+    f = open('scores.txt','r')
+    file = f.readlines()
+    last = int{file[0]}
 
+    if last < int(score):
+        f.close
+        file = open('scores.txt','w')
+        file.write(str(score))
+        file.close
+
+        return score
+
+    return last
+"""
 sol = longuePlateforme(0,564,64,64,20,0,999,999)
 poele = joueur(300, 500, 64, 64)
 
-ingredientsDisponibles = ["Oeuf","Fromage","Jambon","Cornichon", "Champignons", "Salade", "Tomate", "Nutella", "Sucre", "Miel", "Confiture", "Citron", "Chantilly"]
+#ingredientsDisponibles = ["Oeuf","Fromage","Jambon","Cornichon", "Champignons", "Salade", "Tomate", "Nutella", "Sucre", "Miel", "Confiture", "Citron", "Chantilly"]
 
 score = 0
 #nbIngredients = 0
