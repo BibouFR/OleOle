@@ -247,7 +247,7 @@ def redrawGameWindow():
         poele.draw(win)
         #poele.draw(win)
         #sol.draw(win)
-        pygame.display.update()
+
 
 
 sol = longuePlateforme(0,564,64,64,20,0,999,999)
