@@ -1,24 +1,24 @@
 =========================================================================
-RËgles de CrÍpe Party
+R√®gles de Cr√™pe Party
 =========================================================================
 
-	Ce soir, c'est crÍpe party ‡ l'IUT. Mais en voulant rÈcupÈrer les ingrÈdients dans le frigo, Mr Goulian les a tous ÈparpillÈs dans la cuisine. Les professeurs arrivent dans 3 minutes et tout doit Ítre prÍt ‡ leur arrivÈe. Vous devez donc rÈcupÈrer les ingrÈdients pour cuisiner un maximum de crÍpes afin de nourrir les professeurs. 
+	Ce soir, c'est cr√™pe party √† l'IUT. Mais en voulant r√©cup√©rer les ingr√©dients dans le frigo, Mr Goulian les a tous √©parpill√©s dans la cuisine. Les professeurs arrivent dans 3 minutes et tout doit √™tre pr√™t √† leur arriv√©e. Vous devez donc r√©cup√©rer les ingr√©dients pour cuisiner un maximum de cr√™pes afin de nourrir les professeurs.
 
 --------------------------------------
 Points
 --------------------------------------
 
-	Par ailleurs, les profs ont des go˚ts variÈs et commandent donc des recettes diffÈrentes. Pour complÈter une crÍpe vous devez rÈcupÈrer les ingrÈdients demandÈs dans la recette. Chaque bon ingrÈdient rapporte 10 points alors qu'un mauvais en enlËve 8. Une crÍpe complÈtÈe rapporte 100 points.
+	Par ailleurs, les profs ont des go√ªts vari√©s et commandent donc des recettes diff√©rentes. Pour compl√©ter une cr√™pe vous devez r√©cup√©rer les ingr√©dients demand√©s dans la recette. Chaque bon ingr√©√©dient rapporte 10 points alors qu'un mauvais en enl√®ve 8. Une cr√™pe compl√©t√©e rapporte 100 points.
 
 --------------------------------------
 Items Bonus
 --------------------------------------
 
-Il y a aussi 2 items supplÈmentaires :
-	=> Le ressort vous fait sauter mais vous enlËve aussi le dernier ingrÈdient rÈcupÈrÈ dans la poÍle ! Attention sinon la commande pourrait prendre du retard !
-	=> La fusÈe vous emmËne pour quelques secondes dans l'espace o˘ la gravitÈ ne fait plus effet et o˘ Mr Goulian a rÈussi ‡ envoyer quelques ingrÈdients que vous pouvez Èvidemment rÈcupÈrer.
+Il y a aussi 2 items suppl√©mentaires :
+	=> Le ressort vous fait sauter mais vous enl√®ve aussi le dernier ingr√©dient r√©cup√©r√© dans la po√™le ! Attention sinon la commande pourrait prendre du retard !
+	=> La fus√©e vous emm√®ne pour quelques secondes dans l'espace o√π la gravit√© ne fait plus effet et o√π Mr Goulian a r√©ussi √† envoyer quelques ingr√©dients que vous pouvez √©videmment r√©cup√©rer.
 
 ==========================================================================
-				       ___________
-A vos poÍles, prÍts ? Partez !    =====\         /
-					\_______/
+																			 ___________
+A vos po√™les, pr√™ts ? Partez !    =====\         /
+																			  \_______/
