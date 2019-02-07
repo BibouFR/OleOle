@@ -243,16 +243,16 @@ def redrawGameWindow():
     global modelunaire
 
     time = 180 - math.floor(seconds)
-    time = "Time : " + str(time)
+    timer = "Time : " + str(time)
     #score = calculscore()
     tscore = "score : " + str(score)
     # Blit to the screen
     font = pygame.font.Font(None, 50)
-    texttemps = font.render(time, True,(255,255,255))
+    texttemps = font.render(timer, True,(255,255,255))
     font2 = pygame.font.Font(None, 50)
     textscore = font2.render(tscore, True,(255,255,255))
 
-    print(modelunaire)
+
     if not (modelunaire):
         win.blit(bg, (bgX,0))
         win.blit(bg, (bgX2,0))
@@ -270,12 +270,14 @@ def redrawGameWindow():
         pygame.display.update()
         AfficheRecette(win,0,0,testcr, (True, testcr.ingredients[1]))
     else:
+        print(modelunaire)
         win.blit(bglune, (bgXlune,0))
         win.blit(bglune, (bgX2lune,0))
         win.blit(texttemps, [((bg.get_width()/3)), 50])
         win.blit(textscore, [((bg.get_width()/4) - 150), 50])
 
-        timelunaire = 20 - math.floor(seconds)
+        timelunaire = 0
+        timelunaire =(math.floor(seconds)) - (math.floor(seconds)-20)
         timerlunaire = "lunaire : " + str(timelunaire)
         font3 = pygame.font.Font(None, 50)
         texttimer = font3.render(timerlunaire, True,(255,255,255))
