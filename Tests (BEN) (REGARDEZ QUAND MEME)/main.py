@@ -19,7 +19,7 @@ walkRight = [pygame.image.load('../image/R1.png'), pygame.image.load('../image/R
 char = pygame.image.load('../image/R1.png')
 
 bg = pygame.image.load('FondNormale.png')
-bglune = pygame.image.load('bg.jpg')
+bglune = pygame.image.load('../image/FondEspace.png')
 bgX = 0
 bgX2 = bg.get_width()
 
@@ -246,6 +246,7 @@ def redrawGameWindow():
         win.blit(bglune, (bgXlune,0))
         win.blit(bglune, (bgX2lune,0))
         poele.draw(win)
+        pygame.display.update()
         #poele.draw(win)
         #sol.draw(win)
 
@@ -258,8 +259,10 @@ ingredientsDisponibles = ["Oeuf","Fromage","Jambon","Cornichon", "Champignons", 
 
 score = 0
 #nbIngredients = 0
+
 plateformeSpeed = 4.4   #14.4 pour du rapide
 plateformeSpawn = 2750  #1000 pour du rapide
+
 pygame.time.set_timer(pygame.USEREVENT+1,plateformeSpawn)
 pygame.time.set_timer(pygame.USEREVENT+2,5000)
 
@@ -271,7 +274,7 @@ testcr = Crepes(2)
 mesIngredients = []
 objects = []
 
-modelunaire = False
+modelunaire = True
 run = True
 fin = False
 while run:
