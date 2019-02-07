@@ -1,3 +1,3 @@
-hhh:40
-frerr:20
-Benjy:20
+ju:200
+frerr:200
+hhh:200

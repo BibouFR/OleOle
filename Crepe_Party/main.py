@@ -386,7 +386,7 @@ def endScreen():
             i = 0
             for k in kk:
                 nom = k
-                scr = 10
+                scr = 50
                 prevtextscore = font2.render(str(nom) + " : " + str(scr), True,(255,255,255))
                 win.blit(prevtextscore, (winwidht/2 - prevtextscore.get_width()/2,100 + 50*i))
                 i += 1
