@@ -4,6 +4,7 @@ from gestionRecettes import *
 import random
 import math
 
+
 pygame.init()
 
 winwidht = 1000
@@ -266,6 +267,7 @@ def redrawGameWindow():
     textscore = font2.render(tscore, True,(255,255,255))
 
 
+
     if not (modelunaire):
         win.blit(bg, (bgX,0))
         win.blit(bg, (bgX2,0))
@@ -288,9 +290,7 @@ def redrawGameWindow():
         win.blit(texttemps, [((bg.get_width()/3)), 50])
         win.blit(textscore, [((bg.get_width()/4) - 150), 50])
 
-        start_ticks=pygame.time.get_ticks()
-        debut =(pygame.time.get_ticks()-start_ticks)/1000
-        timelunaire = 20 - math.floor(debut)
+        timelunaire = 21 -( math.floor(seconds)%21)
         timerlunaire = "lunaire : " + str(timelunaire)
         font3 = pygame.font.Font(None, 50)
         texttimer = font3.render(timerlunaire, True,(255,255,255))
@@ -298,12 +298,12 @@ def redrawGameWindow():
 
         poele.draw(win)
         for x in objects:
-
             x.draw(win)
-        if (timelunaire <= 0):
+        if (timelunaire <= 1):
             modelunaire = False
             debut = 0
             timelunaire = 0
+            poele.y = 0
 
         AfficheRecette(win,0,0,testcr)
         pygame.display.update()
@@ -458,11 +458,12 @@ mesIngredients = []
 objects = []
 
 modelunaire = False
+timelunaire =0
 run = True
 while run:
     clock.tick(30)
     seconds=(pygame.time.get_ticks()-start_ticks)/1000
-    if seconds>10:
+    if seconds>180:
         run = False
         endScreen()
 
@@ -496,7 +497,11 @@ while run:
 
         if event.type == pygame.USEREVENT+1:
             nbPlatformes = random.randrange(1,5)
-            objects.append(longuePlateforme(1000,random.randrange(300,500),64,64,nbPlatformes,random.randrange(0,3),random.randrange(0,16),random.randrange(0,nbPlatformes)))
+            if not (modelunaire):
+                objects.append(longuePlateforme(1000,random.randrange(300,500),64,64,nbPlatformes,random.randrange(0,3),random.randrange(0,16),random.randrange(0,nbPlatformes)))
+            else:
+                objects.append(longuePlateforme(1000,random.randrange(0,750),64,64,nbPlatformes,random.randrange(0,3),random.randrange(0,16),random.randrange(0,nbPlatformes)))
+
 
         #if event.type == pygame.USEREVENT+2:
          #   mesIngredients.append(ingredient(nbIngredients))

@@ -134,7 +134,7 @@ def AfficheAccueil(tailleAccueil):
             elif over_Quitter:
                 redrawCouleur(accueil, boutonQuitter, boutons, rouge)
             else:
-                redrawCouleur(accueil, boutonQuitter, boutons, grie)
+                redrawCouleur(accueil, boutonQuitter, boutons, gris)
             if event.type == pygame.QUIT or event.type == pygame.MOUSEBUTTONDOWN and event.button==1 and over_Quitter:
                 print("Merci d'avoir joué, à bientot !")
                 run = False
