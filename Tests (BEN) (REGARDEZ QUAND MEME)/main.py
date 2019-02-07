@@ -177,7 +177,7 @@ def testIngr(nom):
 
 class plateforme(object):
     img = [pygame.image.load('../image/BlockFour.png'),pygame.image.load('../image/CommodeBlock.png'),pygame.image.load('../image/LaveVaiselleBlock.png')]
-    ingredients = [pygame.image.load('../image/ressort.png'),pygame.image.load('../image/fromage.png'),pygame.image.load('../image/oeuf.png'),pygame.image.load('../image/tomate.png'),pygame.image.load('../image/Sucre.png'),pygame.image.load('../image/cornichon.png'),pygame.image.load('../image/Nutella.png'),pygame.image.load('../image/champi.png'),pygame.image.load('../image/miel.png'),pygame.image.load('../image/Confiture.png')]
+    ingredients = [pygame.image.load('../image/ressort.png'),pygame.image.load('../image/fromage.png'),pygame.image.load('../image/oeuf.png'),pygame.image.load('../image/tomate.png'),pygame.image.load('../image/sucre.png'),pygame.image.load('../image/cornichon.png'),pygame.image.load('../image/Nutella.png'),pygame.image.load('../image/champi.png'),pygame.image.load('../image/miel.png'),pygame.image.load('../image/Confiture.png')]
 
     def __init__(self, x, y, width, height, type, numIngre):
         self.x = x
@@ -215,7 +215,7 @@ class plateforme(object):
 
 
 class ingredient(object):
-    ingredientsImg = [pygame.image.load('../image/ressort.png'),pygame.image.load('../image/fromage.png'),pygame.image.load('../image/oeuf.png'),pygame.image.load('../image/tomate.png'),pygame.image.load('../image/Sucre.png'),pygame.image.load('../image/cornichon.png'),pygame.image.load('../image/Nutella.png'),pygame.image.load('../image/champi.png'),pygame.image.load('../image/miel.png'),pygame.image.load('../image/Confiture.png')]
+    ingredientsImg = [pygame.image.load('../image/ressort.png'),pygame.image.load('../image/fromage.png'),pygame.image.load('../image/oeuf.png'),pygame.image.load('../image/tomate.png'),pygame.image.load('../image/sucre.png'),pygame.image.load('../image/cornichon.png'),pygame.image.load('../image/Nutella.png'),pygame.image.load('../image/champi.png'),pygame.image.load('../image/miel.png'),pygame.image.load('../image/Confiture.png')]
     def __init__(self,numIngreImg,nomIngre):
         self.nomIngre = nomIngre
         self.nomIngreImg = pygame.image.load('../image/' + nomIngreImg + '.png')
@@ -294,7 +294,7 @@ testcr = Crepes(2)
 mesIngredients = []
 objects = []
 
-modelunaire = True
+modelunaire = False
 run = True
 fin = False
 while run:
