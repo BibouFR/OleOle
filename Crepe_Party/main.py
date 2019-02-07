@@ -174,15 +174,18 @@ class longuePlateforme(object):
 
 def testIngr(nom):
     global score
+    ingrTrouve = False
     for i in testcr.ingredients:
         if i == nom:
             score += 16
+            ingrTrouve = True
             testcr.ingredients.pop(testcr.ingredients.index(i))
             if len(testcr.ingredients) == 0:
                 score += 100
-        else:
-            score -= 2
-
+    if ingrTrouve:
+        score += 20
+    else:
+        score -= 10
 
 class plateforme(object):
     img = [pygame.image.load('../image/BlockFour.png'),pygame.image.load('../image/CommodeBlock.png'),pygame.image.load('../image/LaveVaiselleBlock.png')]
@@ -296,7 +299,7 @@ def redrawGameWindow():
             debut = 0
             timelunaire = 0
 
-        AfficheRecette(win,0,0,testcr, (True, testcr.ingredients[1]))
+        AfficheRecette(win,0,0,testcr)
         pygame.display.update()
         #poele.draw(win)
         #sol.draw(win)
