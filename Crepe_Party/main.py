@@ -174,12 +174,17 @@ class longuePlateforme(object):
 
 def testIngr(nom):
     global score
+    ingrTrouve = False
     for i in testcr.ingredients:
         if i == nom:
-            score += 16
-        else:
-            score -= 2
-
+            ingrTrouve = True
+            testcr.ingredients.pop(testcr.ingredients.index(i))
+            if len(testcr.ingredients) == 0:
+                score += 100
+    if ingrTrouve:
+        score += 20
+    else:
+        score -= 10
 
 class plateforme(object):
     img = [pygame.image.load('../image/BlockFour.png'),pygame.image.load('../image/CommodeBlock.png'),pygame.image.load('../image/LaveVaiselleBlock.png')]
@@ -241,6 +246,7 @@ def redrawGameWindow():
     global seconds
     global score
     global modelunaire
+    global timelunaire
 
     time = 180 - math.floor(seconds)
     timer = "Time : " + str(time)
@@ -267,17 +273,17 @@ def redrawGameWindow():
 
         win.blit(texttemps, [((bg.get_width()/3)), 50])
         win.blit(textscore, [((bg.get_width()/4) - 150), 50])
+        AfficheRecette(win,0,0,testcr)
         pygame.display.update()
-        AfficheRecette(win,0,0,testcr, (True, testcr.ingredients[1]))
     else:
-        print(modelunaire)
         win.blit(bglune, (bgXlune,0))
         win.blit(bglune, (bgX2lune,0))
         win.blit(texttemps, [((bg.get_width()/3)), 50])
         win.blit(textscore, [((bg.get_width()/4) - 150), 50])
 
-        timelunaire = 0
-        timelunaire =(math.floor(seconds)) - (math.floor(seconds)-20)
+        start_ticks=pygame.time.get_ticks()
+        debut =(pygame.time.get_ticks()-start_ticks)/1000
+        timelunaire = 20 - math.floor(debut)
         timerlunaire = "lunaire : " + str(timelunaire)
         font3 = pygame.font.Font(None, 50)
         texttimer = font3.render(timerlunaire, True,(255,255,255))
@@ -289,7 +295,10 @@ def redrawGameWindow():
             x.draw(win)
         if (timelunaire <= 0):
             modelunaire = False
+            debut = 0
+            timelunaire = 0
 
+        AfficheRecette(win,0,0,testcr)
         pygame.display.update()
         #poele.draw(win)
         #sol.draw(win)
@@ -303,7 +312,6 @@ ingredientsDisponibles = ["Oeuf","Fromage","Jambon","Cornichon", "Champignons", 
 
 score = 0
 #nbIngredients = 0
-
 plateformeSpeed = 4.4   #14.4 pour du rapide
 plateformeSpawn = 2750  #1000 pour du rapide
 

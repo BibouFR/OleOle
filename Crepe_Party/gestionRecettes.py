@@ -44,7 +44,7 @@ class Crepes:
 def rectangle(win, couleur, hitbox):
     pygame.draw.rect(win, couleur, hitbox, 2)
 
-def AfficheRecette(win, x, y, crepe, update):
+def AfficheRecette(win, x, y, crepe):
     #COULEURS
     noir = (0,0,0)
     blanc = (255,255,255)
@@ -79,11 +79,14 @@ def AfficheRecette(win, x, y, crepe, update):
     win.blit(texte, positDiff)
 
     nb = 25
+
     for ing in crepe.ingredients:
+        """
         if update[0] and update[1]==ing :
             couling = vert
         else:
             couling = blanc
+            """
         texte = police.render(ing, True, blanc)
         position = texte.get_rect()
         position.centerx = crect2[0]+crect2[2]/2
