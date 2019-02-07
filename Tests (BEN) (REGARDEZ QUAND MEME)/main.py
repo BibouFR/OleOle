@@ -225,14 +225,14 @@ def redrawGameWindow():
     global score
 
     time = 180 - math.floor(seconds)
-    time = "Game Over : " + str(time)
+    time = "Time : " + str(time)
     score = calculscore()
     score = "score : " + str(score)
     # Blit to the screen
     font = pygame.font.Font(None, 50)
-    texttemps = font.render(time, True,(255,0,0))
+    texttemps = font.render(time, True,(255,255,255))
     font2 = pygame.font.Font(None, 50)
-    textscore = font2.render(score, True,(255,0,0))
+    textscore = font2.render(score, True,(255,255,255))
 
 
     if not (modelunaire):
@@ -248,8 +248,8 @@ def redrawGameWindow():
         for x in objects:
             x.draw(win)
 
-        win.blit(texttemps, [((bg.get_width()/4) - 150), 50])
-        win.blit(textscore, [((bg.get_width()/2) - 150), 50])
+        win.blit(texttemps, [((bg.get_width()/3)), 50])
+        win.blit(textscore, [((bg.get_width()/4) - 150), 50])
         pygame.display.update()
         AfficheRecette(win,0,0,testcr, (True, testcr.ingredients[1]))
     else:
@@ -283,11 +283,14 @@ objects = []
 
 modelunaire = False
 run = True
+fin = False
 while run:
     clock.tick(30)
     seconds=(pygame.time.get_ticks()-start_ticks)/1000
     if seconds>180:
-        run =False
+        run = False
+        fin = True
+
     #print(seconds)
 
 
@@ -365,6 +368,19 @@ while run:
     #    AfficheRecette(win,0,0,testcr)
     #else:
 
+while fin:
+    win.blit(bg, (bgX,0))
+    win.blit(bg, (bgX2,0))
+
+    font2 = pygame.font.Font(None, 50)
+    textscore = font2.render(score, True,(255,0,0))
+    win.blit(textscore, [500, 350])
+
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            fin = False
+    pygame.display.update()
 
 
 pygame.quit()
