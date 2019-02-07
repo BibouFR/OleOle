@@ -12,10 +12,12 @@ win = pygame.display.set_mode((winwidht,winheight))
 
 pygame.display.set_caption("Crêpe party")
 
+walkLeft = [pygame.transform.flip(pygame.image.load('../image/R1.png'),True,False),pygame.transform.flip(pygame.image.load('../image/R2.png'),True,False),pygame.transform.flip(pygame.image.load('../image/R3.png'),True,False),pygame.transform.flip(pygame.image.load('../image/R4.png'),True,False),pygame.transform.flip(pygame.image.load('../image/R5.png'),True,False),pygame.transform.flip(pygame.image.load('../image/R6.png'),True,False),pygame.transform.flip(pygame.image.load('../image/R7.png'),True,False),pygame.transform.flip(pygame.image.load('../image/R8.png'),True,False),pygame.transform.flip(pygame.image.load('../image/R9.png'),True,False)]
+
 walkRight = [pygame.image.load('../image/R1.png'), pygame.image.load('../image/R2.png'), pygame.image.load('../image/R3.png'), pygame.image.load('../image/R4.png'), pygame.image.load('../image/R5.png'), pygame.image.load('../image/R6.png'), pygame.image.load('../image/R7.png'), pygame.image.load('../image/R8.png'), pygame.image.load('../image/R9.png')]
 #walkRight = [pygame.image.load('R1.png'), pygame.image.load('R2.png'), pygame.image.load('R3.png'), pygame.image.load('R4.png'), pygame.image.load('R5.png'), pygame.image.load('R6.png'), pygame.image.load('R7.png'), pygame.image.load('R8.png'), pygame.image.load('R9.png')]
-walkLeft = [pygame.image.load('L1.png'), pygame.image.load('L2.png'), pygame.image.load('L3.png'), pygame.image.load('L4.png'), pygame.image.load('L5.png'), pygame.image.load('L6.png'), pygame.image.load('L7.png'), pygame.image.load('L8.png'), pygame.image.load('L9.png')]
-char = pygame.image.load('standing.png')
+#walkLeft = [pygame.image.load('L1.png'), pygame.image.load('L2.png'), pygame.image.load('L3.png'), pygame.image.load('L4.png'), pygame.image.load('L5.png'), pygame.image.load('L6.png'), pygame.image.load('L7.png'), pygame.image.load('L8.png'), pygame.image.load('L9.png')]
+char = pygame.image.load('../image/R1.png')
 
 bg = pygame.image.load('FondNormale.png')
 bglune = pygame.image.load('bg.jpg')
@@ -47,7 +49,7 @@ class joueur(object):
         self.left = False
         self.right = False
         self.walkCount = 0
-        self.hitbox = (self.x + 17, self.y + 2, 31, 57)
+        self.hitbox = (self.x + 10, self.y + 15, 58, 40)
 
     def draw(self,win):
         if self.walkCount + 1 >= 27:
@@ -61,7 +63,7 @@ class joueur(object):
             self.walkCount += 1
         else:
             win.blit(char, (self.x, self.y))
-        self.hitbox = (self.x + 17, self.y + 10, 31, 57)
+        self.hitbox = (self.x + 10, self.y + 15, 58, 40)
         pygame.draw.rect(win,(255,0,0),self.hitbox,2)
 
     def tomber(self,objects):
@@ -232,7 +234,7 @@ def redrawGameWindow():
         #for y in mesIngredients:
          #   y.draw(win)
         poele.draw(win)
-        sol.draw(win)
+        #sol.draw(win)
         for x in objects:
             x.draw(win)
 
@@ -250,7 +252,7 @@ def redrawGameWindow():
 
 
 sol = longuePlateforme(0,564,64,64,20,0,999,999)
-poele = joueur(300, 500, 64, 64)
+poele = joueur(300, 505, 64, 64)
 
 ingredientsDisponibles = ["Oeuf","Fromage","Jambon","Cornichon", "Champignons", "Salade", "Tomate", "Nutella", "Sucre", "Miel", "Confiture", "Citron", "Chantilly"]
 
