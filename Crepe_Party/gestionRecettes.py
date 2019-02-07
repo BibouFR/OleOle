@@ -4,9 +4,9 @@ from random import *
 
 class Crepes:
     def __init__(self, difficulte):        #Crée une crêpe en fonction de la difficulté renvoie une liste d'ingrédients
-        ingredientsDisponibles = ["Oeuf","Fromage","Jambon","Cornichon", "Champignons", "Salade", "Tomate", "Nutella", "Sucre", "Miel", "Confiture", "Citron", "Chantilly"]
-        ingredientsSales = ingredientsDisponibles[:7]
-        ingredientsSucres = ingredientsDisponibles[7:]
+        ingredientsDisponibles = ["Oeuf","Fromage","Cornichon", "Champignons", "Tomate", "Nutella", "Sucre", "Miel", "Confiture", "Citron", "Chantilly"]
+        ingredientsSales = ingredientsDisponibles[:5]
+        ingredientsSucres = ingredientsDisponibles[5:]
         self.ingredients = []
         self.difficulte = difficulte
         a = choice(ingredientsDisponibles)
