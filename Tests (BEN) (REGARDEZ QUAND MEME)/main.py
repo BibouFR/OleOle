@@ -26,6 +26,13 @@ bgX2lune = bglune.get_width()
 
 clock = pygame.time.Clock()
 
+def calculscore():
+    global testcr
+    score = 0
+
+
+
+
 class joueur(object):
     def __init__(self, x, y, width, height):
         self.x = x
@@ -148,10 +155,7 @@ class longuePlateforme(object):
                         print("sucre")
                     elif self.ingre == 4:
                         print("ressort")
-                        i = 1
-                        while poele.y > 0:
-                            poele.y = poele.y - i
-                            i = i +0.01
+                        poele.y = 0
 
                     self.ingre = 999
 
@@ -196,13 +200,14 @@ class plateforme(object):
 class ingredient(object):
     ingredientsImg = [pygame.image.load('../image/cheese.png'),pygame.image.load('../image/oeuf.png'),pygame.image.load('../image/tomato.png'),pygame.image.load('../image/sugar.png'),pygame.image.load('../image/ressort.png')]
 
-    def __init__(self,numIngreImg,numIngre):
-        self.numIngre = numIngre
+    def __init__(self,numIngreImg,nomIngre):
+        self.nomIngre = nomIngre
+        self.nomIngreImg = pygame.image.load('../image/' + nomIngreImg + '.png')
         self.x = 20
         self.y = 720
         self.width = 32
         self.height = 32
-        self.petiteImage = pygame.transform.scale(self.ingredientsImg[self.numIngreImg],(32,32))
+        self.petiteImage = pygame.transform.scale(self.nomIngreImg,(32,32))
 
     def draw(self,win):
         self.x = 20 + self.numIngre * 52
@@ -211,12 +216,17 @@ class ingredient(object):
 def redrawGameWindow():
     global walkCount
     global seconds
+    global score
 
     time = 180 - math.floor(seconds)
     time = "Game Over : " + str(time)
+    score = calculscore()
+    score = "score : " + str(score)
     # Blit to the screen
     font = pygame.font.Font(None, 50)
-    text = font.render(time, True,(255,0,0))
+    texttemps = font.render(time, True,(255,0,0))
+    font2 = pygame.font.Font(None, 50)
+    textscore = font2.render(score, True,(255,0,0))
 
 
     if not (modelunaire):
@@ -232,9 +242,10 @@ def redrawGameWindow():
         for x in objects:
             x.draw(win)
 
-        win.blit(text, [((bg.get_width()/4) - 150), 50])
-        #print(bg.get_width()/4)
+        win.blit(texttemps, [((bg.get_width()/4) - 150), 50])
+        win.blit(textscore, [((bg.get_width()/2) - 150), 50])
         pygame.display.update()
+        AfficheRecette(win,0,0,testcr, (True, testcr.ingredients[1]))
     else:
         win.blit(bglune, (bgXlune,0))
         win.blit(bglune, (bgX2lune,0))
@@ -246,6 +257,10 @@ def redrawGameWindow():
 
 sol = longuePlateforme(0,564,64,64,20,0,999,999)
 poele = joueur(300, 500, 64, 64)
+
+ingredientsDisponibles = ["Oeuf","Fromage","Jambon","Cornichon", "Champignons", "Salade", "Tomate", "Nutella", "Sucre", "Miel", "Confiture", "Citron", "Chantilly"]
+
+score = 0
 #nbIngredients = 0
 plateformeSpeed = 14.4   #14.4 pour du rapide
 plateformeSpawn = 1000  #1000 pour du rapide
@@ -257,7 +272,7 @@ start_ticks=pygame.time.get_ticks()
 
 testcr = Crepes(2)
 
-#mesIngredients = []
+mesIngredients = []
 objects = []
 
 modelunaire = False
@@ -275,8 +290,8 @@ while run:
         objectt.x -= plateformeSpeed
         if objectt.x < -objectt.width * objectt.nb:
             objects.pop(objects.index(objectt))
-        if objectt.toucheIngr(poele.hitbox):
-            a = 6
+        objectt.toucheIngr(poele.hitbox)
+
     bgX -= 1.4
     bgX2 -= 1.4
     if bgX < bg.get_width() * -1:
@@ -342,7 +357,7 @@ while run:
     #if i%2==0:
     #    AfficheRecette(win,0,0,testcr)
     #else:
-    #    AfficheRecette(win,0,0,testcr, (True, testcr.ingredients[1]))
+
 
 
 pygame.quit()
