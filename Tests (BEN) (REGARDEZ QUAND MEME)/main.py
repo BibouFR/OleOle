@@ -61,7 +61,11 @@ class joueur(object):
             self.walkCount += 1
         else:
             win.blit(char, (self.x, self.y))
+<<<<<<< HEAD
         self.hitbox = (self.x + 17, self.y + 10, 31, 57)
+=======
+        self.hitbox = (self.x + 17, self.y + 2, 31, 57)
+>>>>>>> c671958b8429e92d7dcf46c2d09e4ef3c123cbda
         pygame.draw.rect(win,(255,0,0),self.hitbox,2)
 
     def tomber(self,objects):
