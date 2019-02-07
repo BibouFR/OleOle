@@ -19,7 +19,7 @@ walkRight = [pygame.image.load('../image/R1.png'), pygame.image.load('../image/R
 char = pygame.image.load('../image/R1.png')
 
 bg = pygame.image.load('FondNormale.png')
-bglune = pygame.image.load('bg.jpg')
+bglune = pygame.image.load('../image/FondEspace.png')
 bgX = 0
 bgX2 = bg.get_width()
 
@@ -134,6 +134,7 @@ class longuePlateforme(object):
             poele.isJump = False
         return False
 
+
     def toucheIngr(self,rect):
         for i in range(self.nb):
             self.hitbox = (self.x, self.y, self.width, self.height)
@@ -142,28 +143,37 @@ class longuePlateforme(object):
                 self.estTouché = cube.toucheIngre(rect)
                 if self.estTouché:
                     if self.ingre == 0:
-                        print("ressort")
                         poele.y = 0
                     elif self.ingre == 1:
-                        print("fromage")
+                        testIngr("Fromage")
                     elif self.ingre == 2:
-                        print("Oeuf")
+                        testIngr("Oeuf")
                     elif self.ingre == 3:
-                        print("tomate")
+                        testIngr("Tomate")
                     elif self.ingre == 4:
-                        print("sucre")
+                        testIngr("Sucre")
                     elif self.ingre == 5:
-                        print("cornichon")
+                        testIngr("Cornichon")
                     elif self.ingre == 6:
-                        print("Nutella")
+                        testIngr("Nutella")
                     elif self.ingre == 7:
-                        print("Champignon")
+                        testIngr("Champignons")
                     elif self.ingre == 8:
-                        print("miel")
+                        testIngr("Miel")
                     elif self.ingre == 9:
-                        print("confiture")
+                        testIngr("Confiture")
 
                     self.ingre = 999
+
+
+def testIngr(nom):
+    global score
+    for i in testcr.ingredients:
+        if i == nom:
+            score += 16
+        else:
+            score -= 2
+
 
 class plateforme(object):
     img = [pygame.image.load('../image/BlockFour.png'),pygame.image.load('../image/CommodeBlock.png'),pygame.image.load('../image/LaveVaiselleBlock.png')]
@@ -226,13 +236,13 @@ def redrawGameWindow():
 
     time = 180 - math.floor(seconds)
     time = "Time : " + str(time)
-    score = calculscore()
-    score = "score : " + str(score)
+    #score = calculscore()
+    tscore = "score : " + str(score)
     # Blit to the screen
     font = pygame.font.Font(None, 50)
     texttemps = font.render(time, True,(255,255,255))
     font2 = pygame.font.Font(None, 50)
-    textscore = font2.render(score, True,(255,255,255))
+    textscore = font2.render(tscore, True,(255,255,255))
 
 
     if not (modelunaire):
@@ -250,8 +260,8 @@ def redrawGameWindow():
 
         win.blit(texttemps, [((bg.get_width()/3)), 50])
         win.blit(textscore, [((bg.get_width()/4) - 150), 50])
-        pygame.display.update()
         AfficheRecette(win,0,0,testcr, (True, testcr.ingredients[1]))
+        pygame.display.update()
     else:
         win.blit(bglune, (bgXlune,0))
         win.blit(bglune, (bgX2lune,0))
