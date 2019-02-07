@@ -177,7 +177,6 @@ def testIngr(nom):
     ingrTrouve = False
     for i in testcr.ingredients:
         if i == nom:
-            score += 16
             ingrTrouve = True
             testcr.ingredients.pop(testcr.ingredients.index(i))
             if len(testcr.ingredients) == 0:
