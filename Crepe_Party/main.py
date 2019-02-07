@@ -177,6 +177,9 @@ def testIngr(nom):
     for i in testcr.ingredients:
         if i == nom:
             score += 16
+            testcr.ingredients.pop(testcr.ingredients.index(i))
+            if len(testcr.ingredients) == 0:
+                score += 100
         else:
             score -= 2
 
@@ -267,8 +270,8 @@ def redrawGameWindow():
 
         win.blit(texttemps, [((bg.get_width()/3)), 50])
         win.blit(textscore, [((bg.get_width()/4) - 150), 50])
+        AfficheRecette(win,0,0,testcr)
         pygame.display.update()
-        AfficheRecette(win,0,0,testcr, (True, testcr.ingredients[1]))
     else:
         print(modelunaire)
         win.blit(bglune, (bgXlune,0))
