@@ -385,14 +385,10 @@ def endScreen():
         if kk != {}:
             i = 0
             for k in kk:
-                name,_,points = k.partition(":")
-                if name and points:
-                    scr=int(points)
-                    print('e')
                 nom = k
-                scr = points
+                scr = 10
                 prevtextscore = font2.render(str(nom) + " : " + str(scr), True,(255,255,255))
-                win.blit(prevtextscore, (winwidht/2 - prevtextscore.get_width()/2,100 + 30*i))
+                win.blit(prevtextscore, (winwidht/2 - prevtextscore.get_width()/2,100 + 50*i))
                 i += 1
         textscore = font2.render("Score : " + str(score), True,(255,255,255))
         win.blit(textscore, (winwidht/2 - textscore.get_width()/2,250))
