@@ -122,9 +122,9 @@ def AfficheAccueil(tailleAccueil):
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button==1 and over_Regles:
                 print("REGLES")
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button==1 and over_Credits:
-                import accueilOuvert.credits
+                import credits
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button==1 and over_Highscores:
-                import accueilOuvert.highscores
+                import highscores
 
     pygame.display.flip()
 
