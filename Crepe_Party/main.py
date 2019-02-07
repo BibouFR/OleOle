@@ -181,6 +181,7 @@ def testIngr(nom):
             testcr.ingredients.pop(testcr.ingredients.index(i))
             if len(testcr.ingredients) == 0:
                 score += 100
+                nouvelleRecette(2)
     if ingrTrouve:
         score += 20
     else:
@@ -240,6 +241,12 @@ class ingredient(object):
     def draw(self,win):
         self.x = 20 + self.numIngre * 52
         win.blit(self.petiteImage,(self.x,self.y))
+
+def nouvelleRecette(difficulte):
+    global testcr
+    testcr = Crepes(difficulte)
+
+
 
 def redrawGameWindow():
     global walkCount
