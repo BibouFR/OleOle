@@ -155,7 +155,7 @@ class longuePlateforme(object):
 
 class plateforme(object):
     img = [pygame.image.load('../image/BlockFour.png'),pygame.image.load('../image/CommodeBlock.png'),pygame.image.load('../image/LaveVaiselleBlock.png')]
-    ingredients = [pygame.image.load('../image/cheese.png'),pygame.image.load('../image/oeuf.png'),pygame.image.load('../image/tomato.png'),pygame.image.load('../image/sugar.png'),pygame.image.load('../image/ressort.png')]
+    ingredients = [pygame.image.load('../image/Fromage.png'),pygame.image.load('../image/oeuf.png'),pygame.image.load('../image/Tomate.png'),pygame.image.load('../image/Sucre.png'),pygame.image.load('../image/ressort.png')]
     def __init__(self, x, y, width, height, type, numIngre):
         self.x = x
         self.y = y
@@ -192,7 +192,7 @@ class plateforme(object):
 
 
 class ingredient(object):
-    ingredientsImg = [pygame.image.load('../image/cheese.png'),pygame.image.load('../image/oeuf.png'),pygame.image.load('../image/tomato.png'),pygame.image.load('../image/sugar.png'),pygame.image.load('../image/ressort.png')]
+    ingredientsImg = [pygame.image.load('../image/Fromage.png'),pygame.image.load('../image/oeuf.png'),pygame.image.load('../image/Tomate.png'),pygame.image.load('../image/Sucre.png'),pygame.image.load('../image/ressort.png')]
 
     def __init__(self,numIngreImg,nomIngre):
         self.nomIngre = nomIngre
@@ -232,7 +232,7 @@ def redrawGameWindow():
         #for y in mesIngredients:
          #   y.draw(win)
         poele.draw(win)
-        sol.draw(win)
+        #sol.draw(win)
         for x in objects:
             x.draw(win)
 
