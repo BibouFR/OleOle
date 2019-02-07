@@ -232,7 +232,7 @@ def redrawGameWindow():
         #for y in mesIngredients:
          #   y.draw(win)
         poele.draw(win)
-        sol.draw(win)
+        #sol.draw(win)
         for x in objects:
             x.draw(win)
 
