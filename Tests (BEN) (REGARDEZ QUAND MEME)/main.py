@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 from gestionRecettes import *
 import random
+import math
 
 pygame.init()
 
@@ -56,9 +57,13 @@ class joueur(object):
         #pygame.draw.rect(win,(255,0,0),self.hitbox,2)
 
     def tomber(self,objects):
+        i = 5
         for objectt in objects:
             if not(objectt.collision(self.hitbox)) and poele.y + poele.height <= sol.y:
-                poele.y += 5
+                poele.y += i
+                i = i+3
+            else:
+                i = 5
                 #poele.plateforme = False
 
 
@@ -143,8 +148,10 @@ class longuePlateforme(object):
                         print("sucre")
                     elif self.ingre == 4:
                         print("ressort")
-                        #poele.isJump = True
-                        #poele.walkCount = 0
+                        i = 1
+                        while poele.y > 0:
+                            poele.y = poele.y - i
+                            i = i +0.01
 
                     self.ingre = 999
 
@@ -203,6 +210,15 @@ class ingredient(object):
 
 def redrawGameWindow():
     global walkCount
+    global seconds
+
+    time = 180 - math.floor(seconds)
+    time = "Game Over : " + str(time)
+    # Blit to the screen
+    font = pygame.font.Font(None, 50)
+    text = font.render(time, True,(255,0,0))
+
+
     if not (modelunaire):
 
         win.blit(bg, (bgX,0))
@@ -212,9 +228,12 @@ def redrawGameWindow():
         #for y in mesIngredients:
          #   y.draw(win)
         poele.draw(win)
-        #sol.draw(win)
+        sol.draw(win)
         for x in objects:
             x.draw(win)
+
+        win.blit(text, [((bg.get_width()/4) - 150), 50])
+        #print(bg.get_width()/4)
         pygame.display.update()
     else:
         win.blit(bglune, (bgXlune,0))
@@ -233,6 +252,8 @@ plateformeSpawn = 2750  #1000 pour du rapide
 pygame.time.set_timer(pygame.USEREVENT+1,plateformeSpawn)
 pygame.time.set_timer(pygame.USEREVENT+2,5000)
 
+start_ticks=pygame.time.get_ticks()
+
 
 testcr = Crepes(2)
 
@@ -243,6 +264,11 @@ modelunaire = False
 run = True
 while run:
     clock.tick(30)
+    seconds=(pygame.time.get_ticks()-start_ticks)/1000
+    if seconds>180:
+        run =False
+    #print(seconds)
+
 
     for objectt in objects:
         objectt.collision(poele.hitbox)
