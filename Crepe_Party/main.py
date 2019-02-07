@@ -312,11 +312,19 @@ def redrawGameWindow():
 
 def endScreen():
     fin = True
+    input_box = pygame.Rect(100, 100, 140, 32)
+    color_inactive = pygame.Color('lightskyblue3')
+    color_active = pygame.Color('dodgerblue2')
+    color = color_inactive
+    active = False
+    text = ''
+    done = False
+    nom = text
+    kk = {}
+
     while fin:
         clock.tick(30)
         mouseXY = pygame.mouse.get_pos()
-
-
 
         win.blit(bg, (bgX,0))
         #win.blit(bg, (bgX2,0))
@@ -338,20 +346,82 @@ def endScreen():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 fin = False
-            elif event.type == pygame.MOUSEBUTTONDOWN and event.button==1 and over_Accueil:
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button==1 and over_Accueil:
                 print("ACCUEIL...")
                 LancerAccueil()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if input_box.collidepoint(event.pos):
+                    active = not active
+                else:
+                    active = False
+                color = color_active if active else color_inactive
+            if event.type == pygame.KEYDOWN:
+                if active:
+                    if event.key == pygame.K_RETURN:
+                        nom = text
+                        text = ''
+                    elif event.key == pygame.K_BACKSPACE:
+                        text = text[:-1]
+                    else:
+                        text += event.unicode
 
+        font = pygame.font.SysFont(text, 50)
+        txt_surface = font.render(text, True, color)
+        width = max(200, txt_surface.get_width()+10)
+        input_box.w = width
+        input_box.x = (winwidht/2 - width/2)
+        input_box.y = 550
+        win.blit(txt_surface, (winwidht/2 - width/2,550))
+        pygame.draw.rect(win, color, input_box, 2)
+
+        if nom != '':
+            k = prendreScores()
+            k[nom]=score
+            mettreScores(k, top_n=3)
+            kk = prendreScores()
 
 
         font2 = pygame.font.SysFont('comicsans', 80)
-        prevtextscore = font2.render("Record : " + str(updateFile()), True,(255,255,255))
-        win.blit(prevtextscore, (winwidht/2 - prevtextscore.get_width()/2,100))
+        if kk != {}:
+            i = 0
+            for k in kk:
+                name,_,points = k.partition(":")
+                if name and points:
+                    scr=int(points)
+                    print('e')
+                nom = k
+                scr = points
+                prevtextscore = font2.render(str(nom) + " : " + str(scr), True,(255,255,255))
+                win.blit(prevtextscore, (winwidht/2 - prevtextscore.get_width()/2,100 + 30*i))
+                i += 1
         textscore = font2.render("Score : " + str(score), True,(255,255,255))
-        win.blit(textscore, (winwidht/2 - textscore.get_width()/2,200))
+        win.blit(textscore, (winwidht/2 - textscore.get_width()/2,250))
         pygame.display.update()
 
 
+
+def mettreScores(dictionary, fn = "scores.txt", top_n=0):
+    with open(fn,"w") as f:
+        for idx,(name,pts) in enumerate(sorted(dictionary.items(), key= lambda x:-x[1])):
+            f.write(f"{name}:{pts}\n")
+            if top_n and idx == top_n-1:
+                break
+
+def prendreScores(fn = "scores.txt"):
+    hs = {}
+    try:
+        with open(fn,"r") as f:
+            for line in f:
+                name,_,points = line.partition(":")
+                if name and points:
+                    hs[name]=int(points)
+    except FileNotFoundError:
+        return {}
+    return hs
+
+
+
+"""
 def updateFile():
     f = open('scores.txt','r')
     file = f.readlines()
@@ -366,6 +436,7 @@ def updateFile():
         return score
 
     return last
+"""
 
 def LancerAccueil():
     import accueil
