@@ -220,7 +220,7 @@ def redrawGameWindow():
         win.blit(bglune, (bgXlune,0))
         win.blit(bglune, (bgX2lune,0))
         poele.draw(win)
-        poele.draw(win)
+        #poele.draw(win)
         #sol.draw(win)
         pygame.display.update()
 
@@ -228,8 +228,8 @@ def redrawGameWindow():
 sol = longuePlateforme(0,564,64,64,20,0,999,999)
 poele = joueur(300, 500, 64, 64)
 #nbIngredients = 0
-plateformeSpeed = 14.4   #14.4 pour du rapide
-plateformeSpawn = 1000  #1000 pour du rapide
+plateformeSpeed = 4.4   #14.4 pour du rapide
+plateformeSpawn = 2750  #1000 pour du rapide
 pygame.time.set_timer(pygame.USEREVENT+1,plateformeSpawn)
 pygame.time.set_timer(pygame.USEREVENT+2,5000)
 
@@ -313,10 +313,10 @@ while run:
 
 
     redrawGameWindow()
-    if i%2==0:
-        AfficheRecette(win,0,0,testcr)
-    else:
-        AfficheRecette(win,0,0,testcr, (True, testcr.ingredients[1]))
+    #if i%2==0:
+    #    AfficheRecette(win,0,0,testcr)
+    #else:
+    #    AfficheRecette(win,0,0,testcr, (True, testcr.ingredients[1]))
 
 
 pygame.quit()
