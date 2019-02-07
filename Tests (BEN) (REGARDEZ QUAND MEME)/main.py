@@ -197,7 +197,8 @@ class plateforme(object):
 
     def draw(self,win):
         self.hitbox = (self.x,self.y, self.width,self.height)
-        win.blit(self.img[self.type], (self.x,self.y))
+        if not(modelunaire):
+            win.blit(self.img[self.type], (self.x,self.y))
         #pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
         if self.ing != 0:
             win.blit(self.ing,(self.x,self.y-self.height))
@@ -234,6 +235,7 @@ def redrawGameWindow():
     global walkCount
     global seconds
     global score
+    global modelunaire
 
     time = 180 - math.floor(seconds)
     time = "Time : " + str(time)
@@ -245,9 +247,8 @@ def redrawGameWindow():
     font2 = pygame.font.Font(None, 50)
     textscore = font2.render(tscore, True,(255,255,255))
 
-
+    print(modelunaire)
     if not (modelunaire):
-
         win.blit(bg, (bgX,0))
         win.blit(bg, (bgX2,0))
         #caseingredients = (0, 700, 52*nbIngredients, 68)
@@ -261,12 +262,27 @@ def redrawGameWindow():
 
         win.blit(texttemps, [((bg.get_width()/3)), 50])
         win.blit(textscore, [((bg.get_width()/4) - 150), 50])
-        AfficheRecette(win,0,0,testcr, (True, testcr.ingredients[1]))
         pygame.display.update()
+        AfficheRecette(win,0,0,testcr, (True, testcr.ingredients[1]))
     else:
         win.blit(bglune, (bgXlune,0))
         win.blit(bglune, (bgX2lune,0))
+        win.blit(texttemps, [((bg.get_width()/3)), 50])
+        win.blit(textscore, [((bg.get_width()/4) - 150), 50])
+
+        timelunaire = 20 - math.floor(seconds)
+        timerlunaire = "lunaire : " + str(timelunaire)
+        font3 = pygame.font.Font(None, 50)
+        texttimer = font3.render(timerlunaire, True,(255,255,255))
+        win.blit(texttimer, [((bg.get_width()/3)), 100])
+
         poele.draw(win)
+        for x in objects:
+
+            x.draw(win)
+        if (timelunaire <= 0):
+            modelunaire = False
+
         pygame.display.update()
         #poele.draw(win)
         #sol.draw(win)
@@ -308,12 +324,19 @@ while run:
     #print(seconds)
 
 
-    for objectt in objects:
-        objectt.collision(poele.hitbox)
-        objectt.x -= plateformeSpeed
-        if objectt.x < -objectt.width * objectt.nb:
-            objects.pop(objects.index(objectt))
-        objectt.toucheIngr(poele.hitbox)
+    if not(modelunaire):
+        for objectt in objects:
+            objectt.collision(poele.hitbox)
+            objectt.x -= plateformeSpeed
+            if objectt.x < -objectt.width * objectt.nb:
+                objects.pop(objects.index(objectt))
+            objectt.toucheIngr(poele.hitbox)
+    else:
+        for objectt in objects:
+            objectt.x -= plateformeSpeed*3
+            if objectt.x < -objectt.width * objectt.nb:
+                objects.pop(objects.index(objectt))
+            objectt.toucheIngr(poele.hitbox)
 
     bgX -= 1.4
     bgX2 -= 1.4
@@ -351,29 +374,35 @@ while run:
 
     #print("tombe : ",poele.istombe,"\njump : ",poele.istombe)
     #if not (poele.istombe):  #istombe = False
-    if not(poele.isJump):
-        if keys[pygame.K_SPACE] or keys[pygame.K_UP]:
-            poele.isJump = True
-            poele.left = False
-            poele.right = False
-            poele.walkCount = 0
+    if not(modelunaire):
+        if not(poele.isJump):
+            if keys[pygame.K_SPACE] or keys[pygame.K_UP]:
+                poele.isJump = True
+                poele.left = False
+                poele.right = False
+                poele.walkCount = 0
 
+        else:
+            if poele.jumpCount >= -10:
+                neg = 1
+                if poele.jumpCount < 0:
+                    neg = -1
+                poele.y -= (poele.jumpCount ** 2) * 0.5 * neg
+                poele.jumpCount -= 1
+            else:
+                poele.isJump = False
+                poele.jumpCount = 10
+        #else: #istombe = True
+        if poele.istombe:
+            if (poele.y+poele.height < sol.y):
+                poele.tomber(objects)
+            else:
+                poele.istombe = False
     else:
-        if poele.jumpCount >= -10:
-            neg = 1
-            if poele.jumpCount < 0:
-                neg = -1
-            poele.y -= (poele.jumpCount ** 2) * 0.5 * neg
-            poele.jumpCount -= 1
-        else:
-            poele.isJump = False
-            poele.jumpCount = 10
-    #else: #istombe = True
-    if poele.istombe:
-        if (poele.y+poele.height < sol.y):
-            poele.tomber(objects)
-        else:
-            poele.istombe = False
+        if keys[pygame.K_SPACE] or keys[pygame.K_UP]:
+            poele.y = poele.y-7
+        if keys[pygame.K_DOWN]:
+            poele.y= poele.y+7
 
 
 
