@@ -147,7 +147,7 @@ def AfficheAccueil(tailleAccueil):
                 run = False
                 import credits
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button==1 and over_Highscores:
-                import highscores
+                import scores
 
     pygame.display.flip()
 
