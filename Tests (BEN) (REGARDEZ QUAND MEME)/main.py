@@ -266,6 +266,7 @@ def redrawGameWindow():
         win.blit(bglune, (bgXlune,0))
         win.blit(bglune, (bgX2lune,0))
         poele.draw(win)
+        pygame.display.update()
         #poele.draw(win)
         #sol.draw(win)
 
@@ -278,8 +279,10 @@ ingredientsDisponibles = ["Oeuf","Fromage","Jambon","Cornichon", "Champignons", 
 
 score = 0
 #nbIngredients = 0
+
 plateformeSpeed = 4.4   #14.4 pour du rapide
 plateformeSpawn = 2750  #1000 pour du rapide
+
 pygame.time.set_timer(pygame.USEREVENT+1,plateformeSpawn)
 pygame.time.set_timer(pygame.USEREVENT+2,5000)
 
@@ -291,7 +294,7 @@ testcr = Crepes(2)
 mesIngredients = []
 objects = []
 
-modelunaire = False
+modelunaire = True
 run = True
 fin = False
 while run:
