@@ -3,6 +3,13 @@ from pygame import *
 
 pygame.init()
 
+def redrawCouleur(win, bouton, boutons, couleur):
+    gris = (127,127,127)
+    for b in boutons:
+        b = pygame.draw.rect(win, gris, (b.x, b.y, b.width, b.height), 1)
+    bouton = pygame.draw.rect(win, couleur, (bouton.x, bouton.y, bouton.width, bouton.height), 1)
+    pygame.display.flip()
+
 def LancerJeu():
     import main
 
@@ -21,7 +28,9 @@ def AfficheAccueil(tailleAccueil):
     #COULEURS
     noir = (0,0,0)
     gris = (127,127,127)
+    grisClair = (200,200,200)
     blanc = (255,255,255)
+    rouge = (255,0,0)
 
 
     #NOM DU JEU + NOM D'EQUIPE
@@ -94,7 +103,7 @@ def AfficheAccueil(tailleAccueil):
     positTexteJeu.centery = crectBaseBoutons[1]+crectBaseBoutons[3]/2
     accueil.blit(texteJeu, positTexteJeu)
 
-
+    boutons = (boutonJouer, boutonHighscores, boutonRegles, boutonCredits, boutonQuitter)
 
 
 
@@ -113,6 +122,19 @@ def AfficheAccueil(tailleAccueil):
         over_Quitter = boutonQuitter.collidepoint(mouseXY)
 
         for event in pygame.event.get():
+            a = 0
+            if over_Jouer:
+                redrawCouleur(accueil, boutonJouer, boutons, rouge)
+            elif over_Highscores:
+                redrawCouleur(accueil, boutonHighscores, boutons, rouge)
+            elif over_Regles:
+                redrawCouleur(accueil, boutonRegles, boutons, rouge)
+            elif over_Credits:
+                redrawCouleur(accueil, boutonCredits, boutons, rouge)
+            elif over_Quitter:
+                redrawCouleur(accueil, boutonQuitter, boutons, rouge)
+            else:
+                redrawCouleur(accueil, boutonQuitter, boutons, grie)
             if event.type == pygame.QUIT or event.type == pygame.MOUSEBUTTONDOWN and event.button==1 and over_Quitter:
                 print("Merci d'avoir joué, à bientot !")
                 run = False
@@ -122,6 +144,7 @@ def AfficheAccueil(tailleAccueil):
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button==1 and over_Regles:
                 print("REGLES")
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button==1 and over_Credits:
+                run = False
                 import credits
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button==1 and over_Highscores:
                 import highscores
@@ -130,7 +153,7 @@ def AfficheAccueil(tailleAccueil):
 
 
 #LancerJeu()
-tailleAccueil = (1024,768)
+tailleAccueil = (1000,768)
 
 AfficheAccueil(tailleAccueil)
 
