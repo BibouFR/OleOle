@@ -309,7 +309,7 @@ def redrawGameWindow():
         pygame.display.update()
         #poele.draw(win)
         #sol.draw(win)
-"""
+
 def endScreen():
     fin = True
     while fin:
