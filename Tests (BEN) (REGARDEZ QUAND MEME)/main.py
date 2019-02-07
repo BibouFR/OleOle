@@ -136,6 +136,7 @@ class longuePlateforme(object):
 
 
     def toucheIngr(self,rect):
+        global modelunaire
         for i in range(self.nb):
             self.hitbox = (self.x, self.y, self.width, self.height)
             if i == self.ingrePos:
@@ -164,6 +165,10 @@ class longuePlateforme(object):
                         testIngr("Confiture")
                     elif self.ingre == 10:
                         modelunaire = True
+                    elif self.ingre == 11:
+                        testIngr("Citron")
+                    elif self.ingre == 12:
+                        testIngr("Chantilly")
                     self.ingre = 999
 
 
@@ -178,7 +183,7 @@ def testIngr(nom):
 
 class plateforme(object):
     img = [pygame.image.load('../image/BlockFour.png'),pygame.image.load('../image/CommodeBlock.png'),pygame.image.load('../image/LaveVaiselleBlock.png')]
-    ingredients = [pygame.image.load('../image/ressort.png'),pygame.image.load('../image/fromage.png'),pygame.image.load('../image/oeuf.png'),pygame.image.load('../image/tomate.png'),pygame.image.load('../image/sucre.png'),pygame.image.load('../image/cornichon.png'),pygame.image.load('../image/Nutella.png'),pygame.image.load('../image/champi.png'),pygame.image.load('../image/miel.png'),pygame.image.load('../image/Confiture.png'),pygame.image.load('../image/fusee.png')]
+    ingredients = [pygame.image.load('../image/ressort.png'),pygame.image.load('../image/fromage.png'),pygame.image.load('../image/oeuf.png'),pygame.image.load('../image/tomate.png'),pygame.image.load('../image/sucre.png'),pygame.image.load('../image/cornichon.png'),pygame.image.load('../image/Nutella.png'),pygame.image.load('../image/champi.png'),pygame.image.load('../image/miel.png'),pygame.image.load('../image/Confiture.png'),pygame.image.load('../image/fusee.png'),pygame.image.load('../image/citron.png'),pygame.image.load('../image/chantilly.png')]
 
     def __init__(self, x, y, width, height, type, numIngre):
         self.x = x
@@ -191,7 +196,7 @@ class plateforme(object):
         self.ing = 0
         self.numIngre = numIngre
         self.hitboxIngre = (x,y-width,width,height)
-        if self.numIngre < 11:
+        if self.numIngre < 13:
             self.ing = pygame.transform.scale(self.ingredients[self.numIngre],(64,64))
 
 
@@ -209,7 +214,7 @@ class plateforme(object):
     def toucheIngre(self,rect):
         if rect[0] + rect[2] > self.hitboxIngre[0] and rect[0] < self.hitboxIngre[0] + self.hitboxIngre[2]:
             if rect[1] < self.hitboxIngre[3] + self.hitboxIngre[1] and rect[1] + rect[3] > self.hitboxIngre[1]:
-                if self.numIngre < 11:
+                if self.numIngre < 13:
                     #print('touché')
                     return True
         else:
@@ -217,7 +222,7 @@ class plateforme(object):
 
 
 class ingredient(object):
-    ingredientsImg = [pygame.image.load('../image/ressort.png'),pygame.image.load('../image/fromage.png'),pygame.image.load('../image/oeuf.png'),pygame.image.load('../image/tomate.png'),pygame.image.load('../image/sucre.png'),pygame.image.load('../image/cornichon.png'),pygame.image.load('../image/Nutella.png'),pygame.image.load('../image/champi.png'),pygame.image.load('../image/miel.png'),pygame.image.load('../image/Confiture.png'),pygame.image.load('../image/fusee.png')]
+    ingredientsImg = [pygame.image.load('../image/ressort.png'),pygame.image.load('../image/fromage.png'),pygame.image.load('../image/oeuf.png'),pygame.image.load('../image/tomate.png'),pygame.image.load('../image/sucre.png'),pygame.image.load('../image/cornichon.png'),pygame.image.load('../image/Nutella.png'),pygame.image.load('../image/champi.png'),pygame.image.load('../image/miel.png'),pygame.image.load('../image/Confiture.png'),pygame.image.load('../image/fusee.png'),pygame.image.load('../image/citron.png'),pygame.image.load('../image/chantilly.png')]
     def __init__(self,numIngreImg,nomIngre):
         self.nomIngre = nomIngre
         self.nomIngreImg = pygame.image.load('../image/' + nomIngreImg + '.png')
@@ -305,7 +310,6 @@ pygame.time.set_timer(pygame.USEREVENT+2,5000)
 
 start_ticks=pygame.time.get_ticks()
 
-#ererer
 testcr = Crepes(2)
 
 mesIngredients = []
@@ -351,7 +355,7 @@ while run:
 
         if event.type == pygame.USEREVENT+1:
             nbPlatformes = random.randrange(1,5)
-            objects.append(longuePlateforme(1000,random.randrange(300,500),64,64,nbPlatformes,random.randrange(0,3),random.randrange(0,14),random.randrange(0,nbPlatformes)))
+            objects.append(longuePlateforme(1000,random.randrange(300,500),64,64,nbPlatformes,random.randrange(0,3),random.randrange(0,16),random.randrange(0,nbPlatformes)))
 
         #if event.type == pygame.USEREVENT+2:
          #   mesIngredients.append(ingredient(nbIngredients))
