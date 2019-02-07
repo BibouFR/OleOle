@@ -271,11 +271,7 @@ def redrawGameWindow():
 
         win.blit(texttemps, [((bg.get_width()/3)), 50])
         win.blit(textscore, [((bg.get_width()/4) - 150), 50])
-<<<<<<< HEAD
         AfficheRecette(win,0,0,testcr)
-=======
-        AfficheRecette(win,0,0,testcr, (True, testcr.ingredients[1]))
->>>>>>> d6d59b7877abb082bbe872f4dca2b978d93f5826
         pygame.display.update()
     else:
         win.blit(bglune, (bgXlune,0))
