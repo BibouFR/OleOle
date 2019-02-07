@@ -314,23 +314,66 @@ def endScreen():
     fin = True
     while fin:
         clock.tick(30)
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                fin = False
+        mouseXY = pygame.mouse.get_pos()
+
+
 
         win.blit(bg, (bgX,0))
         #win.blit(bg, (bgX2,0))
+        xBaseBoutons = 390
+        yBaseBoutons = 340
+        crectBaseBoutons = (xBaseBoutons, yBaseBoutons, 250, 70)
+
+        boutonAccueil = pygame.draw.rect(win, (127,127,127), crectBaseBoutons, 1)
+        taillePolice = 40
+        policeNomAccueil = pygame.font.SysFont("freesans", taillePolice)
+        texteAccueil = policeNomAccueil.render("Accueil", True, (0,0,0))
+        positTexteAccueil = texteAccueil.get_rect()
+        positTexteAccueil.centerx = crectBaseBoutons[0]+crectBaseBoutons[2]/2
+        positTexteAccueil.centery = crectBaseBoutons[1]+crectBaseBoutons[3]/2
+        win.blit(texteAccueil, positTexteAccueil)
+
+        over_Accueil = boutonAccueil.collidepoint(mouseXY)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                fin = False
+            elif event.type == pygame.MOUSEBUTTONDOWN and event.button==1 and over_Accueil:
+                print("ACCUEIL...")
+                LancerAccueil()
+
+
 
         font2 = pygame.font.SysFont('comicsans', 80)
+        prevtextscore = font2.render("Record : " + str(updateFile()), True,(255,255,255))
+        win.blit(prevtextscore, (winwidht/2 - prevtextscore.get_width()/2,100))
         textscore = font2.render("Score : " + str(score), True,(255,255,255))
         win.blit(textscore, (winwidht/2 - textscore.get_width()/2,200))
         pygame.display.update()
 
 
+def updateFile():
+    f = open('scores.txt','r')
+    file = f.readlines()
+    last = int(file[0])
+
+    if last < int(score):
+        f.close
+        file = open('scores.txt','w')
+        file.write(str(score))
+        file.close
+
+        return score
+
+    return last
+
+def LancerAccueil():
+    import accueil
+
 sol = longuePlateforme(0,564,64,64,20,0,999,999)
 poele = joueur(300, 500, 64, 64)
 
-ingredientsDisponibles = ["Oeuf","Fromage","Jambon","Cornichon", "Champignons", "Salade", "Tomate", "Nutella", "Sucre", "Miel", "Confiture", "Citron", "Chantilly"]
+#ingredientsDisponibles = ["Oeuf","Fromage","Jambon","Cornichon", "Champignons", "Salade", "Tomate", "Nutella", "Sucre", "Miel", "Confiture", "Citron", "Chantilly"]
 
 score = 0
 #nbIngredients = 0
