@@ -299,7 +299,7 @@ def redrawGameWindow():
         poele.draw(win)
         for x in objects:
             x.draw(win)
-        if (timelunaire <= 0):
+        if (timelunaire <= 1):
             modelunaire = False
             debut = 0
             timelunaire = 0
