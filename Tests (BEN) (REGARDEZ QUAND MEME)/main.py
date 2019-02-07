@@ -136,6 +136,7 @@ class longuePlateforme(object):
 
 
     def toucheIngr(self,rect):
+        global modelunaire
         for i in range(self.nb):
             self.hitbox = (self.x, self.y, self.width, self.height)
             if i == self.ingrePos:
