@@ -4,6 +4,7 @@ from gestionRecettes import *
 import random
 import math
 
+
 pygame.init()
 
 winwidht = 1000
@@ -266,6 +267,7 @@ def redrawGameWindow():
     textscore = font2.render(tscore, True,(255,255,255))
 
 
+
     if not (modelunaire):
         win.blit(bg, (bgX,0))
         win.blit(bg, (bgX2,0))
@@ -288,9 +290,7 @@ def redrawGameWindow():
         win.blit(texttemps, [((bg.get_width()/3)), 50])
         win.blit(textscore, [((bg.get_width()/4) - 150), 50])
 
-        start_ticks=pygame.time.get_ticks()
-        debut =(pygame.time.get_ticks()-start_ticks)/1000
-        timelunaire = 20 - math.floor(debut)
+        timelunaire = 21 -( math.floor(seconds)%21)
         timerlunaire = "lunaire : " + str(timelunaire)
         font3 = pygame.font.Font(None, 50)
         texttimer = font3.render(timerlunaire, True,(255,255,255))
@@ -298,7 +298,6 @@ def redrawGameWindow():
 
         poele.draw(win)
         for x in objects:
-
             x.draw(win)
         if (timelunaire <= 0):
             modelunaire = False
@@ -391,11 +390,12 @@ mesIngredients = []
 objects = []
 
 modelunaire = False
+timelunaire =0
 run = True
 while run:
     clock.tick(30)
     seconds=(pygame.time.get_ticks()-start_ticks)/1000
-    if seconds>10:
+    if seconds>180:
         run = False
         endScreen()
 
