@@ -310,6 +310,21 @@ def redrawGameWindow():
         #poele.draw(win)
         #sol.draw(win)
 
+def endScreen():
+    fin = True
+    while fin:
+        clock.tick(30)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                fin = False
+
+        win.blit(bg, (bgX,0))
+        #win.blit(bg, (bgX2,0))
+
+        font2 = pygame.font.SysFont('comicsans', 80)
+        textscore = font2.render("Score : " + str(score), True,(255,255,255))
+        win.blit(textscore, (winwidht/2 - textscore.get_width()/2,200))
+        pygame.display.update()
 
 
 sol = longuePlateforme(0,564,64,64,20,0,999,999)
@@ -334,13 +349,12 @@ objects = []
 
 modelunaire = False
 run = True
-fin = False
 while run:
     clock.tick(30)
     seconds=(pygame.time.get_ticks()-start_ticks)/1000
-    if seconds>180:
+    if seconds>10:
         run = False
-        fin = True
+        endScreen()
 
     #print(seconds)
 
@@ -431,20 +445,5 @@ while run:
     #if i%2==0:
     #    AfficheRecette(win,0,0,testcr)
     #else:
-
-while fin:
-    win.blit(bg, (bgX,0))
-    win.blit(bg, (bgX2,0))
-
-    font2 = pygame.font.Font(None, 50)
-    textscore = font2.render(score, True,(255,0,0))
-    win.blit(textscore, [500, 350])
-
-
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            fin = False
-    pygame.display.update()
-
 
 pygame.quit()
