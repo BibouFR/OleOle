@@ -244,6 +244,7 @@ def redrawGameWindow():
     global seconds
     global score
     global modelunaire
+    global timelunaire
 
     time = 180 - math.floor(seconds)
     timer = "Time : " + str(time)
@@ -270,17 +271,21 @@ def redrawGameWindow():
 
         win.blit(texttemps, [((bg.get_width()/3)), 50])
         win.blit(textscore, [((bg.get_width()/4) - 150), 50])
+<<<<<<< HEAD
         AfficheRecette(win,0,0,testcr)
+=======
+        AfficheRecette(win,0,0,testcr, (True, testcr.ingredients[1]))
+>>>>>>> d6d59b7877abb082bbe872f4dca2b978d93f5826
         pygame.display.update()
     else:
-        print(modelunaire)
         win.blit(bglune, (bgXlune,0))
         win.blit(bglune, (bgX2lune,0))
         win.blit(texttemps, [((bg.get_width()/3)), 50])
         win.blit(textscore, [((bg.get_width()/4) - 150), 50])
 
-        timelunaire = 0
-        timelunaire =(math.floor(seconds)) - (math.floor(seconds)-20)
+        start_ticks=pygame.time.get_ticks()
+        debut =(pygame.time.get_ticks()-start_ticks)/1000
+        timelunaire = 20 - math.floor(debut)
         timerlunaire = "lunaire : " + str(timelunaire)
         font3 = pygame.font.Font(None, 50)
         texttimer = font3.render(timerlunaire, True,(255,255,255))
@@ -292,7 +297,10 @@ def redrawGameWindow():
             x.draw(win)
         if (timelunaire <= 0):
             modelunaire = False
+            debut = 0
+            timelunaire = 0
 
+        AfficheRecette(win,0,0,testcr, (True, testcr.ingredients[1]))
         pygame.display.update()
         #poele.draw(win)
         #sol.draw(win)
@@ -306,7 +314,6 @@ ingredientsDisponibles = ["Oeuf","Fromage","Jambon","Cornichon", "Champignons", 
 
 score = 0
 #nbIngredients = 0
-
 plateformeSpeed = 4.4   #14.4 pour du rapide
 plateformeSpawn = 2750  #1000 pour du rapide
 
