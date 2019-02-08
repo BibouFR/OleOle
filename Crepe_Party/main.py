@@ -411,8 +411,8 @@ def LancerAccueil():
 sol = longuePlateforme(0,564,64,64,20,0,999,999)
 poele = joueur(300, 500, 64, 64)
 score = 0
-plateformeSpeed = 4.4   #14.4 pour du rapide
-plateformeSpawn = 2750  #1000 pour du rapide
+plateformeSpeed = 7   #14.4 pour du rapide
+plateformeSpawn = 2000  #1000 pour du rapide
 pygame.time.set_timer(pygame.USEREVENT+1,plateformeSpawn)
 pygame.time.set_timer(pygame.USEREVENT+2,1000)
 start_ticks=pygame.time.get_ticks()
