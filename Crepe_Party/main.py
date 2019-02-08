@@ -454,7 +454,7 @@ while run:
             if not (modelunaire):
                 objects.append(longuePlateforme(1000,random.randrange(300,500),64,64,nbPlatformes,random.randrange(0,3),random.randrange(0,16),random.randrange(0,nbPlatformes)))
             else:
-                objects.append(longuePlateforme(1000,random.randrange(0,750),64,64,nbPlatformes,random.randrange(0,3),random.randrange(0,16),random.randrange(0,nbPlatformes)))
+                objects.append(longuePlateforme(1000,random.randrange(50,700),64,64,nbPlatformes,random.randrange(0,3),random.randrange(0,16),random.randrange(0,nbPlatformes)))
 
         if event.type == pygame.USEREVENT+2:
             if modelunaire:
