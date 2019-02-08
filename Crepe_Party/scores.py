@@ -16,15 +16,6 @@ bgX2 = bg.get_width()
 fin = True
 kk = {}
 
-
-
-def mettreScores(dictionary, fn = "scores.txt", top_n=0):
-    with open(fn,"w") as f:
-        for idx,(name,pts) in enumerate(sorted(dictionary.items(), key= lambda x:-x[1])):
-            f.write(f"{name}:{pts}\n")
-            if top_n and idx == top_n-1:
-                break
-
 def prendreScores(fn = "scores.txt"):
     hs = {}
     try:
@@ -35,6 +26,18 @@ def prendreScores(fn = "scores.txt"):
                     hs[name]=int(points)
     except FileNotFoundError:
         return {}
+    return hs
+
+def prendrePoint(fn = "scores.txt"):
+    hs = []
+    try:
+        with open(fn,"r") as f:
+            for line in f:
+                name,_,points = line.partition(":")
+                if name and points:
+                    hs.append(points)
+    except FileNotFoundError:
+        return []
     return hs
 
 
@@ -89,13 +92,34 @@ while fin:
 
 
     kk = prendreScores()
+    pts = []
+    scr1 = 0
+    scr2 = 0
+    scr3 = 0
+    j = 0
+    pts = prendrePoint()
+    for pt in pts:
+        if j == 0:
+            scr1 = pt
+        elif j == 1:
+            scr2 = pt
+        elif j == 2:
+            scr3 = pt
+        j += 1
     font2 = pygame.font.SysFont('comicsans', 80)
     if kk != {}:
+        pts = prendrePoint()
         i = 0
         for k in kk:
             nom = k
-            scr = 50
-            prevtextscore = font2.render(str(nom) + " : " + str(scr), True,(255,255,255))
-            win.blit(prevtextscore, (winwidht/2 - prevtextscore.get_width()/2,100 + 50*i))
+            if i == 0:
+                prevtextscore = font2.render(str(nom) + " : " + str(scr1), True,(255,255,255))
+                win.blit(prevtextscore, (winwidht/2 - prevtextscore.get_width()/2,100 + 50*i))
+            elif i == 1:
+                prevtextscore = font2.render(str(nom) + " : " + str(scr2), True,(255,255,255))
+                win.blit(prevtextscore, (winwidht/2 - prevtextscore.get_width()/2,100 + 50*i))
+            elif i == 2:
+                prevtextscore = font2.render(str(nom) + " : " + str(scr3), True,(255,255,255))
+                win.blit(prevtextscore, (winwidht/2 - prevtextscore.get_width()/2,100 + 50*i))
             i += 1
     pygame.display.update()

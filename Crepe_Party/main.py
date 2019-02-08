@@ -381,17 +381,38 @@ def endScreen():
             kk = prendreScores()
 
 
+        pts = []
+        scr1 = 0
+        scr2 = 0
+        scr3 = 0
+        j = 0
+        pts = prendrePoint()
+        for pt in pts:
+            if j == 0:
+                scr1 = pt
+            elif j == 1:
+                scr2 = pt
+            elif j == 2:
+                scr3 = pt
+            j += 1
         font2 = pygame.font.SysFont('comicsans', 80)
         if kk != {}:
+            pts = prendrePoint()
             i = 0
             for k in kk:
                 nom = k
-                scr = 50
-                prevtextscore = font2.render(str(nom) + " : " + str(scr), True,(255,255,255))
-                win.blit(prevtextscore, (winwidht/2 - prevtextscore.get_width()/2,100 + 50*i))
+                if i == 0:
+                    prevtextscore = font2.render(str(nom) + " : " + str(scr1), True,(255,255,255))
+                    win.blit(prevtextscore, (winwidht/2 - prevtextscore.get_width()/2,100 + 50*i))
+                elif i == 1:
+                    prevtextscore = font2.render(str(nom) + " : " + str(scr2), True,(255,255,255))
+                    win.blit(prevtextscore, (winwidht/2 - prevtextscore.get_width()/2,100 + 50*i))
+                elif i == 2:
+                    prevtextscore = font2.render(str(nom) + " : " + str(scr3), True,(255,255,255))
+                    win.blit(prevtextscore, (winwidht/2 - prevtextscore.get_width()/2,100 + 50*i))
                 i += 1
         textscore = font2.render("Score : " + str(score), True,(255,255,255))
-        win.blit(textscore, (winwidht/2 - textscore.get_width()/2,250))
+        win.blit(textscore, (winwidht/2 - textscore.get_width()/2,270))
         pygame.display.update()
 
 
@@ -415,6 +436,17 @@ def prendreScores(fn = "scores.txt"):
         return {}
     return hs
 
+def prendrePoint(fn = "scores.txt"):
+    hs = []
+    try:
+        with open(fn,"r") as f:
+            for line in f:
+                name,_,points = line.partition(":")
+                if name and points:
+                    hs.append(points)
+    except FileNotFoundError:
+        return []
+    return hs
 
 
 """
@@ -463,7 +495,7 @@ run = True
 while run:
     clock.tick(30)
     seconds=(pygame.time.get_ticks()-start_ticks)/1000
-    if seconds>180:
+    if seconds>10:
         run = False
         endScreen()
 
