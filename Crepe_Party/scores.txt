@@ -3,3 +3,4 @@ banenen 0
 frec 20
 gdet 20
 BibouFR 10
+Zeratul 520
