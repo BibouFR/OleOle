@@ -420,7 +420,7 @@ run = True
 while run:
     clock.tick(30)
     seconds=(pygame.time.get_ticks()-start_ticks)/1000
-    if seconds>10:
+    if seconds>180:
         run = False
         endScreen()
 
