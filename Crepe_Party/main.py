@@ -431,7 +431,7 @@ def endScreen():
 
 """
 def mettreScores(dictionary, fn = "scores.txt", top_n=0):
-    with open(fn,"w") as f:
+    with open(fn,"a") as f:
         for idx,(name,pts) in enumerate(sorted(dictionary.items(), key= lambda x:-x[1])):
             f.write(f"{name}:{pts}\n")
             if top_n and idx == top_n-1:
@@ -468,7 +468,14 @@ def prendreScores():
         win.blit(prevtextscore, (winwidht/2 - prevtextscore.get_width()/2,100 + 50*i))
 
 
+<<<<<<< HEAD
 """
+=======
+
+
+
+
+>>>>>>> 451059f1ebcce9bc86d312e3219c193d88948f91
 def prendreScores(fn = "scores.txt"):
     hs = {}
     try:

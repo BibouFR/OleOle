@@ -16,7 +16,7 @@ def AfficheCredit(taille):
 
     #CREDITS + QUITTER
     crectCredits = (390,100,250,100)
-    crectNomEquipe = (520,210,160,50)
+    crectNomRetour = (520,210,160,50)
     taillePolice = 40
     policeCredits = pygame.font.SysFont("freesans", taillePolice)
     texteCredits = policeCredits.render("Crédits", True, noir)
@@ -26,13 +26,13 @@ def AfficheCredit(taille):
     winCredit.blit(texteCredits, positTexteCredits)
 
     taillePolice = 20
-    boutonRetour = pygame.draw.rect(winCredit, gris, crectNomEquipe, 1)
-    policeNomEquipe = pygame.font.SysFont("freesans", taillePolice)
-    texteEquipe = policeNomEquipe.render("Retour", True, noir)
-    positTexteEquipe = texteEquipe.get_rect()
-    positTexteEquipe.centerx = crectNomEquipe[0]+crectNomEquipe[2]/2
-    positTexteEquipe.centery = crectNomEquipe[1]+crectNomEquipe[3]/2
-    winCredit.blit(texteEquipe, positTexteEquipe)
+    boutonRetour = pygame.draw.rect(winCredit, gris, crectNomRetour, 1)
+    policeNomRetour = pygame.font.SysFont("freesans", taillePolice)
+    texteRetour = policeNomRetour.render("Retour", True, noir)
+    positTexteRetour = texteRetour.get_rect()
+    positTexteRetour.centerx = crectNomRetour[0]+crectNomRetour[2]/2
+    positTexteRetour.centery = crectNomRetour[1]+crectNomRetour[3]/2
+    winCredit.blit(texteRetour, positTexteRetour)
 
     #POLICE GENS
     taillePolice = 15
@@ -97,9 +97,9 @@ def AfficheCredit(taille):
         over_Retour = boutonRetour.collidepoint(mouseXY)
         for event in pygame.event.get():
             if over_Retour:
-                boutonRetour = pygame.draw.rect(winCredit, rouge, crectNomEquipe, 1)
+                boutonRetour = pygame.draw.rect(winCredit, rouge, crectNomRetour, 1)
             else:
-                boutonRetour = pygame.draw.rect(winCredit, gris, crectNomEquipe, 1)
+                boutonRetour = pygame.draw.rect(winCredit, gris, crectNomRetour, 1)
             pygame.display.flip()
             if event.type == pygame.QUIT or event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and over_Retour:
                 run = False
