@@ -142,6 +142,7 @@ class longuePlateforme(object):
                 if self.estTouché:
                     if self.ingre == 0:
                         poele.y = 0
+                        testIngr("Ressort")
                     elif self.ingre == 1:
                         testIngr("Fromage")
                     elif self.ingre == 2:
@@ -170,15 +171,20 @@ class longuePlateforme(object):
 
 
 def testIngr(nom):
-    global score
+    global score, dernierIngr
     ingrTrouve = False
+    if nom == "Ressort":
+        if dernierIngr != "":
+            testcr.ingredients.append(dernierIngr)
     for i in testcr.ingredients:
         if i == nom:
+            dernierIngr = nom
             ingrTrouve = True
             testcr.ingredients.pop(testcr.ingredients.index(i))
             if len(testcr.ingredients) == 0:
                 score += 100
                 nouvelleRecette(2)
+                dernierIngr = ""
     if ingrTrouve:
         score += 20
     else:
@@ -411,6 +417,7 @@ pygame.time.set_timer(pygame.USEREVENT+1,plateformeSpawn)
 pygame.time.set_timer(pygame.USEREVENT+2,1000)
 start_ticks=pygame.time.get_ticks()
 testcr = Crepes(2)
+dernierIngr = ""
 mesIngredients = []
 objects = []
 modelunaire = False
