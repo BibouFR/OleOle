@@ -396,7 +396,7 @@ def prendreScores():
         x = 3
     for i in range(0,x):
         font2 = pygame.font.SysFont('comicsans', 80)
-        prevtextscore = font2.render(liste2[i][0] + " " + str(liste2[i][1]), True,(255,255,255))
+        prevtextscore = font2.render(str(i+1) + " : " + liste2[i][0] + " " + str(liste2[i][1]), True,(255,255,255))
         win.blit(prevtextscore, (winwidht/2 - prevtextscore.get_width()/2,100 + 50*i))
 
 def LancerAccueil():
