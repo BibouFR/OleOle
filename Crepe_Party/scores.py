@@ -1,4 +1,5 @@
 import pygame
+from operator import itemgetter
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -16,6 +17,33 @@ bgX2 = bg.get_width()
 fin = True
 kk = {}
 
+
+def prendreScores():
+    src = open("scores.txt","r")
+    liste = []
+    for ligne in src:
+        score = ""
+        nom = ""
+        for car in ligne:
+            if car<='9' and car >= '0':
+                score = score + car
+            elif car<='z' and car >='A':
+                nom = nom + car
+        tuple = (nom, int(score))
+        liste.append(tuple)
+    liste2 = sorted(liste, key = itemgetter(1), reverse=True)
+    #print(liste2)
+    src.close()
+    if len(liste2) < 4:
+        x = len(liste2)
+    else:
+        x = 3
+    for i in range(0,x):
+        font2 = pygame.font.SysFont('comicsans', 80)
+        prevtextscore = font2.render(liste2[i][0] + " " + str(liste2[i][1]), True,(255,255,255))
+        win.blit(prevtextscore, (winwidht/2 - prevtextscore.get_width()/2,100 + 50*i))
+
+"""
 def prendreScores(fn = "scores.txt"):
     hs = {}
     try:
@@ -40,7 +68,7 @@ def prendrePoint(fn = "scores.txt"):
         return []
     return hs
 
-
+"""
 
 """
 def updateFile():
@@ -90,7 +118,10 @@ while fin:
             print("ACCUEIL...")
             LancerAccueil()
 
+    prendreScores()
+    pygame.display.update()
 
+"""
     kk = prendreScores()
     pts = []
     scr1 = 0
@@ -122,4 +153,4 @@ while fin:
                 prevtextscore = font2.render(str(nom) + " : " + str(scr3), True,(255,255,255))
                 win.blit(prevtextscore, (winwidht/2 - prevtextscore.get_width()/2,100 + 50*i))
             i += 1
-    pygame.display.update()
+            """
