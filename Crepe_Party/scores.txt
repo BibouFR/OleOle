@@ -1,3 +1,4 @@
-ju:200
-frerr:120
-gre:0
+bena -10
+banenen 0
+frec 20
+gdet 20

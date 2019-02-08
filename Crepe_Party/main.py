@@ -3,6 +3,7 @@ from pygame.locals import *
 from gestionRecettes import *
 import random
 import math
+from operator import itemgetter
 
 
 pygame.init()
@@ -322,6 +323,7 @@ def endScreen():
     done = False
     nom = text
     kk = {}
+    b = True
 
     while fin:
         clock.tick(30)
@@ -375,13 +377,23 @@ def endScreen():
         win.blit(txt_surface, (winwidht/2 - width/2,550))
         pygame.draw.rect(win, color, input_box, 2)
 
-        if nom != '':
+        if nom != '' and b:
+            mettreScores(nom,score)
+            b = False
+
+        prendreScores()
+        font2 = pygame.font.SysFont('comicsans', 80)
+        textscore = font2.render("Score : " + str(score), True,(255,255,255))
+        win.blit(textscore, (winwidht/2 - textscore.get_width()/2,270))
+        pygame.display.update()
+
+"""
             k = prendreScores()
             k[nom]=score
             mettreScores(k, top_n=3)
             kk = prendreScores()
-
-
+"""
+"""
         pts = []
         scr1 = 0
         scr2 = 0
@@ -415,16 +427,48 @@ def endScreen():
         textscore = font2.render("Score : " + str(score), True,(255,255,255))
         win.blit(textscore, (winwidht/2 - textscore.get_width()/2,270))
         pygame.display.update()
+"""
 
-
-
+"""
 def mettreScores(dictionary, fn = "scores.txt", top_n=0):
     with open(fn,"w") as f:
         for idx,(name,pts) in enumerate(sorted(dictionary.items(), key= lambda x:-x[1])):
             f.write(f"{name}:{pts}\n")
             if top_n and idx == top_n-1:
                 break
+"""
+def mettreScores(nom,score):
+    src = open("scores.txt","a")
+    src.write(nom + " " + str(score) + "\n")
+    src.close()
 
+def prendreScores():
+    src = open("scores.txt","r")
+    liste = []
+    for ligne in src:
+        score = ""
+        nom = ""
+        for car in ligne:
+            if car<='9' and car >= '0':
+                score = score + car
+            elif car<='z' and car >='A':
+                nom = nom + car
+        tuple = (nom, int(score))
+        liste.append(tuple)
+    liste2 = sorted(liste, key = itemgetter(1), reverse=True)
+    #print(liste2)
+    src.close()
+    if len(liste2) < 4:
+        x = len(liste2)
+    else:
+        x = 3
+    for i in range(0,x):
+        font2 = pygame.font.SysFont('comicsans', 80)
+        prevtextscore = font2.render(liste2[i][0] + " " + str(liste2[i][1]), True,(255,255,255))
+        win.blit(prevtextscore, (winwidht/2 - prevtextscore.get_width()/2,100 + 50*i))
+
+
+"""
 def prendreScores(fn = "scores.txt"):
     hs = {}
     try:
@@ -436,7 +480,8 @@ def prendreScores(fn = "scores.txt"):
     except FileNotFoundError:
         return {}
     return hs
-
+"""
+"""
 def prendrePoint(fn = "scores.txt"):
     hs = []
     try:
@@ -448,7 +493,7 @@ def prendrePoint(fn = "scores.txt"):
     except FileNotFoundError:
         return []
     return hs
-
+"""
 
 """
 def updateFile():
@@ -497,7 +542,7 @@ run = True
 while run:
     clock.tick(30)
     seconds=(pygame.time.get_ticks()-start_ticks)/1000
-    if seconds>180:
+    if seconds>10:
         run = False
         endScreen()
 
