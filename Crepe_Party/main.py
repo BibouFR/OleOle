@@ -16,8 +16,6 @@ pygame.display.set_caption("Crêpe party")
 
 walkLeft = [pygame.transform.flip(pygame.image.load('../image/R1.png'),True,False),pygame.transform.flip(pygame.image.load('../image/R2.png'),True,False),pygame.transform.flip(pygame.image.load('../image/R3.png'),True,False),pygame.transform.flip(pygame.image.load('../image/R4.png'),True,False),pygame.transform.flip(pygame.image.load('../image/R5.png'),True,False),pygame.transform.flip(pygame.image.load('../image/R6.png'),True,False),pygame.transform.flip(pygame.image.load('../image/R7.png'),True,False),pygame.transform.flip(pygame.image.load('../image/R8.png'),True,False),pygame.transform.flip(pygame.image.load('../image/R9.png'),True,False)]
 walkRight = [pygame.image.load('../image/R1.png'), pygame.image.load('../image/R2.png'), pygame.image.load('../image/R3.png'), pygame.image.load('../image/R4.png'), pygame.image.load('../image/R5.png'), pygame.image.load('../image/R6.png'), pygame.image.load('../image/R7.png'), pygame.image.load('../image/R8.png'), pygame.image.load('../image/R9.png')]
-#walkRight = [pygame.image.load('R1.png'), pygame.image.load('R2.png'), pygame.image.load('R3.png'), pygame.image.load('R4.png'), pygame.image.load('R5.png'), pygame.image.load('R6.png'), pygame.image.load('R7.png'), pygame.image.load('R8.png'), pygame.image.load('R9.png')]
-#walkLeft = [pygame.image.load('L1.png'), pygame.image.load('L2.png'), pygame.image.load('L3.png'), pygame.image.load('L4.png'), pygame.image.load('L5.png'), pygame.image.load('L6.png'), pygame.image.load('L7.png'), pygame.image.load('L8.png'), pygame.image.load('L9.png')]
 char = pygame.image.load('../image/R1.png')
 
 bg = pygame.image.load('FondNormale.png')
@@ -104,21 +102,18 @@ class longuePlateforme(object):
             cube.draw(win)
 
     def collision(self,rect):
-        #print("1 : ",poele.y+ poele.height,"\n2 : ", sol.y)
         if rect[1] + rect[3] >= sol.y:
             poele.istombe = False
         if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2] * self.nb:
             if rect[1] < self.hitbox[3] + self.hitbox[1] and rect[1] + rect[3] > self.hitbox[1]:
                 if ((rect[1] + rect[3]) <= (self.hitbox[1] + self.hitbox[3]/2)) and ((rect[1] + rect[3]) >= (self.hitbox[1])):
                     poele.y = self.hitbox[1] - poele.height
-                    #poele.isJump = False
                     poele.jumpCount = 10
                     poele.istombe = False
 
                 elif ((rect[1]) >= (self.hitbox[1] + self.hitbox[3]/2)) and (rect[1]) <= (self.hitbox[1] +self.hitbox[3]):
                     poele.y = self.hitbox[1] + self.hitbox[3]
                     poele.y = self.hitbox[1] + self.hitbox[3]+ 5
-                    #poele.isJump = False
                     poele.jumpCount = 10
                     poele.istombe = False
 
@@ -223,7 +218,6 @@ class plateforme(object):
         if rect[0] + rect[2] > self.hitboxIngre[0] and rect[0] < self.hitboxIngre[0] + self.hitboxIngre[2]:
             if rect[1] < self.hitboxIngre[3] + self.hitboxIngre[1] and rect[1] + rect[3] > self.hitboxIngre[1]:
                 if self.numIngre < 13:
-                    #print('touché')
                     return True
         else:
             return False
@@ -260,9 +254,7 @@ def redrawGameWindow():
 
     time = 180 - math.floor(seconds)
     timer = "Time : " + str(time)
-    #score = calculscore()
     tscore = "score : " + str(score)
-    # Blit to the screen
     font = pygame.font.Font(None, 50)
     texttemps = font.render(timer, True,(255,255,255))
     font2 = pygame.font.Font(None, 50)
@@ -273,12 +265,7 @@ def redrawGameWindow():
     if not (modelunaire):
         win.blit(bg, (bgX,0))
         win.blit(bg, (bgX2,0))
-        #caseingredients = (0, 700, 52*nbIngredients, 68)
-        #pygame.draw.rect(win, (255, 255, 255), (caseingredients))
-        #for y in mesIngredients:
-         #   y.draw(win)
         poele.draw(win)
-        #sol.draw(win)
         for x in objects:
             x.draw(win)
 
@@ -292,7 +279,6 @@ def redrawGameWindow():
         win.blit(texttemps, [((bg.get_width()/3)), 50])
         win.blit(textscore, [((bg.get_width()/4) - 150), 50])
 
-        #timelunaire = 21 -( math.floor(seconds)%21)
         timerlunaire = "lunaire : " + str(timerss)
         font3 = pygame.font.Font(None, 50)
         texttimer = font3.render(timerlunaire, True,(255,255,255))
@@ -304,13 +290,10 @@ def redrawGameWindow():
         if (timerss <= 1):
             modelunaire = False
             debut = 0
-            #timelunaire = 0
             poele.y = 0
 
         AfficheRecette(win,0,0,testcr)
         pygame.display.update()
-        #poele.draw(win)
-        #sol.draw(win)
 
 def endScreen():
     fin = True
@@ -330,7 +313,6 @@ def endScreen():
         mouseXY = pygame.mouse.get_pos()
 
         win.blit(bg, (bgX,0))
-        #win.blit(bg, (bgX2,0))
         xBaseBoutons = 390
         yBaseBoutons = 340
         crectBaseBoutons = (xBaseBoutons, yBaseBoutons, 250, 70)
@@ -387,56 +369,6 @@ def endScreen():
         win.blit(textscore, (winwidht/2 - textscore.get_width()/2,270))
         pygame.display.update()
 
-"""
-            k = prendreScores()
-            k[nom]=score
-            mettreScores(k, top_n=3)
-            kk = prendreScores()
-"""
-"""
-        pts = []
-        scr1 = 0
-        scr2 = 0
-        scr3 = 0
-        j = 0
-        pts = prendrePoint()
-        for pt in pts:
-            if j == 0:
-                scr1 = pt
-            elif j == 1:
-                scr2 = pt
-            elif j == 2:
-                scr3 = pt
-            j += 1
-        font2 = pygame.font.SysFont('comicsans', 80)
-        if kk != {}:
-            pts = prendrePoint()
-            i = 0
-            for k in kk:
-                nom = k
-                if i == 0:
-                    prevtextscore = font2.render(str(nom) + " : " + str(scr1), True,(255,255,255))
-                    win.blit(prevtextscore, (winwidht/2 - prevtextscore.get_width()/2,100 + 50*i))
-                elif i == 1:
-                    prevtextscore = font2.render(str(nom) + " : " + str(scr2), True,(255,255,255))
-                    win.blit(prevtextscore, (winwidht/2 - prevtextscore.get_width()/2,100 + 50*i))
-                elif i == 2:
-                    prevtextscore = font2.render(str(nom) + " : " + str(scr3), True,(255,255,255))
-                    win.blit(prevtextscore, (winwidht/2 - prevtextscore.get_width()/2,100 + 50*i))
-                i += 1
-        textscore = font2.render("Score : " + str(score), True,(255,255,255))
-        win.blit(textscore, (winwidht/2 - textscore.get_width()/2,270))
-        pygame.display.update()
-"""
-
-"""
-def mettreScores(dictionary, fn = "scores.txt", top_n=0):
-    with open(fn,"a") as f:
-        for idx,(name,pts) in enumerate(sorted(dictionary.items(), key= lambda x:-x[1])):
-            f.write(f"{name}:{pts}\n")
-            if top_n and idx == top_n-1:
-                break
-"""
 def mettreScores(nom,score):
     src = open("scores.txt","a")
     src.write(nom + " " + str(score) + "\n")
@@ -467,74 +399,20 @@ def prendreScores():
         prevtextscore = font2.render(liste2[i][0] + " " + str(liste2[i][1]), True,(255,255,255))
         win.blit(prevtextscore, (winwidht/2 - prevtextscore.get_width()/2,100 + 50*i))
 
-
-"""
-def prendreScores(fn = "scores.txt"):
-    hs = {}
-    try:
-        with open(fn,"r") as f:
-            for line in f:
-                name,_,points = line.partition(":")
-                if name and points:
-                    hs[name]=int(points)
-    except FileNotFoundError:
-        return {}
-    return hs
-"""
-"""
-def prendrePoint(fn = "scores.txt"):
-    hs = []
-    try:
-        with open(fn,"r") as f:
-            for line in f:
-                name,_,points = line.partition(":")
-                if name and points:
-                    hs.append(points)
-    except FileNotFoundError:
-        return []
-    return hs
-"""
-
-"""
-def updateFile():
-    f = open('scores.txt','r')
-    file = f.readlines()
-    last = int(file[0])
-
-    if last < int(score):
-        f.close
-        file = open('scores.txt','w')
-        file.write(str(score))
-        file.close
-
-        return score
-
-    return last
-"""
-
 def LancerAccueil():
     import accueil
 
 sol = longuePlateforme(0,564,64,64,20,0,999,999)
 poele = joueur(300, 500, 64, 64)
-
-#ingredientsDisponibles = ["Oeuf","Fromage","Jambon","Cornichon", "Champignons", "Salade", "Tomate", "Nutella", "Sucre", "Miel", "Confiture", "Citron", "Chantilly"]
-
 score = 0
-#nbIngredients = 0
 plateformeSpeed = 4.4   #14.4 pour du rapide
 plateformeSpawn = 2750  #1000 pour du rapide
-
 pygame.time.set_timer(pygame.USEREVENT+1,plateformeSpawn)
 pygame.time.set_timer(pygame.USEREVENT+2,1000)
-
 start_ticks=pygame.time.get_ticks()
-
 testcr = Crepes(2)
-
 mesIngredients = []
 objects = []
-
 modelunaire = False
 timelunaire =0
 timerss = 20
@@ -545,9 +423,6 @@ while run:
     if seconds>10:
         run = False
         endScreen()
-
-    #print(seconds)
-
 
     if not(modelunaire):
         for objectt in objects:
@@ -587,7 +462,6 @@ while run:
             else:
                 timerss = 20
 
-
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT] and poele.x > poele.vel:
         poele.x -= poele.vel
@@ -602,8 +476,6 @@ while run:
         poele.right = False
         poele.walkCount = 0
 
-    #print("tombe : ",poele.istombe,"\njump : ",poele.istombe)
-    #if not (poele.istombe):  #istombe = False
     if not(modelunaire):
         if not(poele.isJump):
             if keys[pygame.K_SPACE] or keys[pygame.K_UP]:
@@ -611,7 +483,6 @@ while run:
                 poele.left = False
                 poele.right = False
                 poele.walkCount = 0
-
         else:
             if poele.jumpCount >= -10:
                 neg = 1
@@ -622,7 +493,6 @@ while run:
             else:
                 poele.isJump = False
                 poele.jumpCount = 10
-        #else: #istombe = True
         if poele.istombe:
             if (poele.y+poele.height < sol.y):
                 poele.tomber(objects)
@@ -634,11 +504,5 @@ while run:
         if keys[pygame.K_DOWN]:
             poele.y= poele.y+7
 
-
-
     redrawGameWindow()
-    #if i%2==0:
-    #    AfficheRecette(win,0,0,testcr)
-    #else:
-
 pygame.quit()
