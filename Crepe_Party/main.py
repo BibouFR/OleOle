@@ -255,6 +255,7 @@ def redrawGameWindow():
     global score
     global modelunaire
     global timelunaire
+    global timerss
 
     time = 180 - math.floor(seconds)
     timer = "Time : " + str(time)
@@ -290,8 +291,8 @@ def redrawGameWindow():
         win.blit(texttemps, [((bg.get_width()/3)), 50])
         win.blit(textscore, [((bg.get_width()/4) - 150), 50])
 
-        timelunaire = 21 -( math.floor(seconds)%21)
-        timerlunaire = "lunaire : " + str(timelunaire)
+        #timelunaire = 21 -( math.floor(seconds)%21)
+        timerlunaire = "lunaire : " + str(timerss)
         font3 = pygame.font.Font(None, 50)
         texttimer = font3.render(timerlunaire, True,(255,255,255))
         win.blit(texttimer, [((bg.get_width()/3)), 100])
@@ -299,10 +300,10 @@ def redrawGameWindow():
         poele.draw(win)
         for x in objects:
             x.draw(win)
-        if (timelunaire <= 1):
+        if (timerss <= 1):
             modelunaire = False
             debut = 0
-            timelunaire = 0
+            #timelunaire = 0
             poele.y = 0
 
         AfficheRecette(win,0,0,testcr)
@@ -480,7 +481,7 @@ plateformeSpeed = 4.4   #14.4 pour du rapide
 plateformeSpawn = 2750  #1000 pour du rapide
 
 pygame.time.set_timer(pygame.USEREVENT+1,plateformeSpawn)
-pygame.time.set_timer(pygame.USEREVENT+2,5000)
+pygame.time.set_timer(pygame.USEREVENT+2,1000)
 
 start_ticks=pygame.time.get_ticks()
 
@@ -491,11 +492,12 @@ objects = []
 
 modelunaire = False
 timelunaire =0
+timerss = 20
 run = True
 while run:
     clock.tick(30)
     seconds=(pygame.time.get_ticks()-start_ticks)/1000
-    if seconds>10:
+    if seconds>180:
         run = False
         endScreen()
 
@@ -534,11 +536,12 @@ while run:
             else:
                 objects.append(longuePlateforme(1000,random.randrange(0,750),64,64,nbPlatformes,random.randrange(0,3),random.randrange(0,16),random.randrange(0,nbPlatformes)))
 
+        if event.type == pygame.USEREVENT+2:
+            if modelunaire:
+                timerss -= 1
+            else:
+                timerss = 20
 
-        #if event.type == pygame.USEREVENT+2:
-         #   mesIngredients.append(ingredient(nbIngredients))
-          #  nbIngredients += 1
-           # print('test')
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT] and poele.x > poele.vel:
