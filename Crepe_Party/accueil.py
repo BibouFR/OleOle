@@ -3,7 +3,7 @@ from pygame import *
 
 pygame.init()
 
-pygame.mixer.music.load("../musique/menu.mp3")
+pygame.mixer.music.load("../musiques/menu.mp3")
 pygame.mixer.music.play(-1)
 
 def redrawCouleur(win, bouton, boutons, couleur):
@@ -15,9 +15,9 @@ def redrawCouleur(win, bouton, boutons, couleur):
 
 def LancerJeu():
     pygame.mixer.music.stop()
-    pygame.mixer.music.load("../musique/jeu.mp3")
+    pygame.mixer.music.load("../musiques/jeu.mp3")
     pygame.mixer.music.play(0)
-    pygame.mixer.music.queue("../musique/menu.mp3")
+    pygame.mixer.music.queue("../musiques/menu.mp3")
     import main
 
 def incr(crect):
