@@ -468,14 +468,7 @@ def prendreScores():
         win.blit(prevtextscore, (winwidht/2 - prevtextscore.get_width()/2,100 + 50*i))
 
 
-<<<<<<< HEAD
 """
-=======
-
-
-
-
->>>>>>> 451059f1ebcce9bc86d312e3219c193d88948f91
 def prendreScores(fn = "scores.txt"):
     hs = {}
     try:
