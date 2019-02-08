@@ -419,11 +419,15 @@ def endScreen():
 
 
 def mettreScores(dictionary, fn = "scores.txt", top_n=0):
-    with open(fn,"w") as f:
+    with open(fn,"a") as f:
         for idx,(name,pts) in enumerate(sorted(dictionary.items(), key= lambda x:-x[1])):
             f.write(f"{name}:{pts}\n")
             if top_n and idx == top_n-1:
                 break
+
+
+
+
 
 def prendreScores(fn = "scores.txt"):
     hs = {}

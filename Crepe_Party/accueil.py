@@ -139,10 +139,12 @@ def AfficheAccueil(tailleAccueil):
                 print("Merci d'avoir joué, à bientot !")
                 run = False
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button==1 and over_Jouer:
+                run = False
                 print("LOADING...")
                 LancerJeu()
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button==1 and over_Regles:
-                print("REGLES")
+                run = False
+                import regles
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button==1 and over_Credits:
                 run = False
                 import credits
