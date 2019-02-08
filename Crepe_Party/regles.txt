@@ -8,7 +8,7 @@ Règles de Crêpe Party
 Points
 --------------------------------------
 
-	Par ailleurs, les profs ont des goûts variés et commandent donc des recettes différentes. Pour compléter une crêpe vous devez récupérer les ingrédients demandés dans la recette. Chaque bon ingréédient rapporte 10 points alors qu'un mauvais en enlève 8. Une crêpe complétée rapporte 100 points.
+	Par ailleurs, les profs ont des goûts variés et commandent donc des recettes différentes. Pour compléter une crêpe vous devez récupérer les ingrédients demandés dans la recette. Chaque bon ingrédient rapporte 10 points alors qu'un mauvais en enlève 8. Une crêpe complétée rapporte 100 points.
 
 --------------------------------------
 Items Bonus

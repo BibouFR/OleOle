@@ -34,6 +34,7 @@ def AfficheRegles(taille):
     positTexteRetour.centery = crectNomRetour[1]+crectNomRetour[3]/2
     winRegles.blit(texteRetour, positTexteRetour)
 
+    winRegles.blit("../image/Regles.rdp", (335,320))
     pygame.display.flip()
 
     run = True
